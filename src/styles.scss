@@ -1,3 +1,11 @@
+@use 'themes' as *;
+
+@use '@nebular/theme/styles/globals' as *;
+
+@include nb-install() {
+  @include nb-theme-global();
+};
+
 * {
   margin: 0;
   outline: none;

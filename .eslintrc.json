@@ -1,17 +1,11 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
+        "project": ["tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
@@ -34,17 +28,51 @@
             "prefix": "app",
             "style": "kebab-case"
           }
+        ],
+        "comma-dangle": [
+          "warn",
+          {
+            "arrays": "always-multiline",
+            "objects": "always-multiline",
+            "imports": "always-multiline",
+            "exports": "always-multiline",
+            "functions": "never"
+          }
+        ],
+        "no-multiple-empty-lines": "warn",
+        "eol-last": "warn",
+        "array-element-newline": "warn",
+        "object-property-newline": "warn",
+        "max-len": [
+          "error",
+          {
+            "code": 120,
+            "ignoreTemplateLiterals": true
+          }
         ]
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
-      "rules": {}
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {
+        "no-multiple-empty-lines": "warn",
+        "eol-last": "warn",
+        "max-len": [
+          "error",
+          {
+            "code": 120,
+            "ignoreTemplateLiterals": true
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.scss"],
+      "rules": {
+        "no-multiple-empty-lines": "warn",
+        "eol-last": "warn"
+      }
     }
   ]
 }

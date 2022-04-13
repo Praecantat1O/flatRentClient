@@ -4,15 +4,22 @@
 
 @include nb-install() {
   @include nb-theme-global();
-};
+}
 
 * {
   margin: 0;
   outline: none;
 }
 
-html, body {
+html,
+body {
   height: 100%;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 input[nbinput]::placeholder {

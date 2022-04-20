@@ -1,11 +1,17 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MainComponent } from './main.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { NbCardModule } from '@nebular/theme';
+import { MainRoutingModule } from './main-routing.module';
 
 @NgModule({
   declarations: [
     MainComponent,
   ],
-  imports: [CommonModule],
+  imports: [
+    MainRoutingModule,
+    SharedModule,
+    NbCardModule,
+  ],
 })
 export class MainModule {}

@@ -1,0 +1,17 @@
+<nb-card>
+  <nb-card-body class="preview">
+    <ng-container *ngFor="let file of files">
+      <div class="preview__item">
+        <button class="preview__button"
+                nbButton
+                status="danger"
+                size="tiny"
+                (click)="onRemove(file.id)">
+          <nb-icon icon="trash-2"></nb-icon>
+        </button>
+        <img class="preview__img"
+             [src]="file.img">
+      </div>
+    </ng-container>
+  </nb-card-body>
+</nb-card>

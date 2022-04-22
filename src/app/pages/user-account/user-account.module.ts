@@ -6,6 +6,7 @@ import { UserAccountRoutingModule } from './user-account-routing.module';
 @NgModule({
   declarations: [UserAccountComponent],
   imports: [
+    CommonModule,
     UserAccountRoutingModule,
     CommonModule,
   ],

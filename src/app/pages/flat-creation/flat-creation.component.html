@@ -1,1 +1,216 @@
-<p>flat-creation works!</p>
+<nb-card size="giant"
+         status="primary"
+         class="card">
+  <nb-card-header>
+    <h2>Create New Flat Advertisement</h2>
+  </nb-card-header>
+  <nb-card-body>
+    <form class="form"
+          [formGroup]="newFlatForm"
+          (ngSubmit)="onSubmit()">
+
+      <nb-card status="control"
+               accent="primary">
+        <nb-card-header>Write a title</nb-card-header>
+        <nb-card-body>
+          <nb-form-field class="form__item">
+            <input nbInput
+                   type="text"
+                   placeholder="Title"
+                   fieldSize="large"
+                   formControlName="title">
+          </nb-form-field>
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card status="control"
+               accent="primary">
+        <nb-card-header>Number Of Rooms</nb-card-header>
+        <nb-card-body>
+          <div class="form__item">
+            <nb-radio-group class="form__group"
+                            formControlName="rooms">
+              <nb-radio *ngFor="let option of roomsOptions"
+                        [value]="option.value">
+                {{ option.label }}
+              </nb-radio>
+            </nb-radio-group>
+          </div>
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card status="control"
+               accent="primary">
+        <nb-card-header>General Information:</nb-card-header>
+        <nb-card-body>
+          <div class="form__item form__item--centered form__item--vertical">
+            <nb-checkbox formControlName="combinedBathroom"></nb-checkbox>
+            <span class="form__item-name form__item-name--right">
+              Combined bathroom
+            </span>
+          </div>
+          <div class="form__item form__item--centered form__item--vertical">
+            <nb-checkbox formControlName="balcony"></nb-checkbox>
+            <span class="form__item-name form__item-name--right">
+              Balcony
+            </span>
+          </div>
+          <div class="form__item form__item--vertical">
+            <p class="form__input-label">Floor:</p>
+            <nb-form-field>
+              <input nbInput
+                     class="form__input"
+                     type="text"
+                     placeholder="Floor"
+                     fieldSize="small"
+                     formControlName="floor">
+            </nb-form-field>
+          </div>
+
+          <div class="form__item form__item--vertical">
+            <p class="form__input-label">Square:</p>
+            <nb-form-field>
+              <input nbInput
+                     class="form__input"
+                     type="text"
+                     placeholder="Square, sq.m"
+                     fieldSize="small"
+                     formControlName="square">
+            </nb-form-field>
+          </div>
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card status="control"
+               accent="primary">
+        <nb-card-header>Devices</nb-card-header>
+        <nb-card-body>
+          <div formGroupName="devices">
+            <nb-card>
+              <nb-card-header class="card__header">
+                <nb-icon class="card__icon"
+                         icon="home-outline"></nb-icon><span>Home</span>
+              </nb-card-header>
+              <nb-card-body>
+                <div class="form__group"
+                     formGroupName="home">
+                  <ng-container *ngFor="let field of homeDevicesFields">
+                    <div class="form__item form__item--horizontal form__item--centered">
+                      <nb-checkbox formControlName="{{field}}"></nb-checkbox>
+                      <span class="form__item-name">
+                        {{devicesMap.get(field)}}
+                      </span>
+                    </div>
+                  </ng-container>
+                </div>
+              </nb-card-body>
+            </nb-card>
+
+            <nb-card>
+              <nb-card-header class="card__header">
+                <fa-icon class="card__icon"
+                         [icon]="faBath"></fa-icon><span>Bathroom</span>
+              </nb-card-header>
+              <nb-card-body>
+                <div class="form__group"
+                     formGroupName="bathroom">
+                  <ng-container *ngFor="let field of bathroomDevicesFields">
+                    <div class="form__item form__item--horizontal form__item--centered">
+                      <nb-checkbox formControlName="{{field}}"></nb-checkbox>
+                      <span class="form__item-name">
+                        {{devicesMap.get(field)}}
+                      </span>
+                    </div>
+                  </ng-container>
+                </div>
+              </nb-card-body>
+            </nb-card>
+
+            <nb-card>
+              <nb-card-header class="card__header">
+                <fa-icon class="card__icon"
+                         [icon]="faFireBurner"></fa-icon><span>Kitchen</span>
+              </nb-card-header>
+              <nb-card-body>
+                <div class="form__group"
+                     formGroupName="kitchen">
+                  <ng-container *ngFor="let field of kitchenDevicesFields">
+                    <div class="form__item form__item--horizontal form__item--centered">
+                      <nb-checkbox formControlName="{{field}}"></nb-checkbox>
+                      <span class="form__item-name">
+                        {{devicesMap.get(field)}}
+                      </span>
+                    </div>
+                  </ng-container>
+                </div>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card status="control"
+               accent="primary">
+        <nb-card-header>Description</nb-card-header>
+        <nb-card-body>
+          <textarea nbInput
+                    class="form__textarea"
+                    formControlName="description"
+                    fullWidth
+                    maxlength="400"
+                    placeholder="Please, write a little about your apartments"></textarea>
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card status="control"
+               accent="primary">
+        <nb-card-header>Add Photos</nb-card-header>
+        <nb-card-body>
+          <div class="file-input">
+            <button class="file-input__visible"
+                    nbButton
+                    hero
+                    status="primary">Upload Your Photos</button>
+            <input type="file"
+                   nbInput
+                   multiple
+                   class="file-input__invisible"
+                   formControlName="photosControl"
+                   (change)="onPhotoUpload($event)">
+          </div>
+          <app-img-preview *ngIf="photoFiles.length > 0"
+                           [files]="photoFiles"
+                           (remove)="removeImg($event)"></app-img-preview>
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card status="control"
+               accent="primary">
+        <nb-card-header>Select an Address</nb-card-header>
+        <nb-card-body>
+            <!-- <input #autoInput
+                  nbInput
+                  type="text"
+                  (input)="onAddress()"
+                  placeholder="Enter value"
+                  [nbAutocomplete]="auto" />
+
+            <nb-autocomplete #auto
+                            (selectedChange)="onSelectionChange($event)">
+
+              <nb-option *ngFor="let option of filteredOptions$ | async"
+                        [value]="option">
+                {{ option }}
+              </nb-option>
+
+            </nb-autocomplete> -->
+        </nb-card-body>
+      </nb-card>
+
+      <button nbButton
+              class="form__button"
+              type="submit"
+              status="primary">Send</button>
+    </form>
+  </nb-card-body>
+</nb-card>

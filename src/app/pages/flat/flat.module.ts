@@ -6,8 +6,8 @@ import { FlatRoutingModule } from './flat-routing.module';
 @NgModule({
   declarations: [FlatComponent],
   imports: [
-    FlatRoutingModule,
     CommonModule,
+    FlatRoutingModule,
   ],
 })
 export class FlatModule {}

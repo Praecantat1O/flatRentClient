@@ -41,8 +41,16 @@
         ],
         "no-multiple-empty-lines": "warn",
         "eol-last": "warn",
-        "array-element-newline": "warn",
-        "object-property-newline": "warn",
+        "array-element-newline": [
+          "warn",
+          {
+            "ArrayExpression": "consistent",
+            "ArrayPattern": { "minItems": 2 }
+          }
+        ],
+        "object-property-newline": [
+          "warn",
+          { "allowAllPropertiesOnSameLine": true }],
         "max-len": [
           "error",
           {

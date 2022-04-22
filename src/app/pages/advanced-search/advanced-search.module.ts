@@ -6,8 +6,8 @@ import { AdvancedSearchRoutingModule } from './advanced-search-routing.module';
 @NgModule({
   declarations: [AdvancedSearchComponent],
   imports: [
-    AdvancedSearchRoutingModule,
     CommonModule,
+    AdvancedSearchRoutingModule,
   ],
 })
 export class AdvancedSearchModule {}

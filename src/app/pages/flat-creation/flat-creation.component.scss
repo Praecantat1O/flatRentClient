@@ -1,0 +1,73 @@
+.card {
+  width: 1000px;
+  margin: 0 auto;
+
+  &__header {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  &__icon {
+    margin-right: 5px;
+  }
+}
+
+.form {
+  &__item {
+    &--horizontal {
+      margin-right: 40px;
+    }
+
+    &--vertical {
+      margin-bottom: 10px;
+    }
+
+    &--centered {
+      display: flex;
+      align-items: center;
+      line-height: 0.5;
+    }
+  }
+
+  &__item-name {
+    margin-left: 10px;
+  }
+
+  &__input {
+    display: block;
+  }
+
+  &__input-label {
+    margin-bottom: 5px;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__textarea {
+    min-height: 100px;
+    max-height: 300px;
+  }
+}
+
+.file-input {
+  &__invisible {
+    opacity: 0;
+    width: 200px;
+    height: 40px;
+    position: relative;
+    z-index: 2;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__visible {
+    position: absolute;
+    width: 200px;
+    height: 40px;
+  }
+}

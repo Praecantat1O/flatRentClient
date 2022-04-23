@@ -27,6 +27,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.0",
     "@nebular/eva-icons": "9.0.2",
     "@nebular/theme": "^9.0.2",
+    "@ngrx/effects": "^13.1.0",
     "@ngrx/store": "^13.1.0",
     "eva-icons": "^1.1.2",
     "rxjs": "~7.5.0",

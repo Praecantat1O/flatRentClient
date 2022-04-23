@@ -13,7 +13,6 @@ export class AddressService {
   constructor(private http: HttpClient) { }
 
   public getAddressByString(str: string): Observable<Address[]> {
-
     return this.http.get<Address[]>(`${apiUrl}?search="${str}`);
   }
 }

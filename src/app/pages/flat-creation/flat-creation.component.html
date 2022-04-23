@@ -185,16 +185,12 @@
       </nb-card>
 
       <nb-card status="control"
-               accent="primary">
+               accent="primary"
+               size="tiny">
         <nb-card-header>Select an Address</nb-card-header>
-
         <nb-card-body>
-          <nb-card>
-            <nb-card-body>
               <app-address-autocomplete (selectAddress)="onSelectAddress($event)">
               </app-address-autocomplete>
-            </nb-card-body>
-          </nb-card>
         </nb-card-body>
       </nb-card>
 

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   bathroomDevicesFields,
@@ -8,14 +8,15 @@ import {
   roomsOptions,
 } from 'src/app/shared/helpers/flat-fields.helper';
 import { faBath, faFireBurner } from '@fortawesome/free-solid-svg-icons';
+import { Address } from 'src/app/models/address.model';
 
 @Component({
   selector: 'app-flat-creation',
   templateUrl: './flat-creation.component.html',
   styleUrls: ['./flat-creation.component.scss'],
 })
-export class FlatCreationComponent implements OnInit {
-  constructor(private cdr: ChangeDetectorRef) {}
+export class FlatCreationComponent {
+  constructor(private cdr: ChangeDetectorRef) { }
 
   public newFlatForm: FormGroup = new FormGroup({
     title: new FormControl('', [
@@ -58,6 +59,7 @@ export class FlatCreationComponent implements OnInit {
     description: new FormControl('', [Validators.required, Validators.maxLength(400), Validators.minLength(20)]),
     photosControl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(5)]),
     photos: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required), // TODO!
   });
 
   public roomsOptions = roomsOptions;
@@ -69,13 +71,11 @@ export class FlatCreationComponent implements OnInit {
   public faBath = faBath;
   public faFireBurner = faFireBurner;
 
-  ngOnInit(): void {}
+  public photoFiles: any[] = [];
 
   public onSubmit(): void {
     console.log(this.newFlatForm.value);
   }
-
-  public photoFiles: any[] = [];
 
   public onPhotoUpload(event: any): void {
     if (event.target.files.length > 0) {
@@ -105,5 +105,9 @@ export class FlatCreationComponent implements OnInit {
       photos: this.photoFiles,
     });
     this.cdr.markForCheck();
+  }
+
+  public onSelectAddress(address: Address): void {
+    this.newFlatForm.get('address').patchValue(address);
   }
 }

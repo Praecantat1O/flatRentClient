@@ -8,6 +8,7 @@ enum ACTIONS {
   ADDRESS_SEARCH_AUTOCOMPLETE = '[Address] Address Search Autocomplete',
   ADDRESS_SEARCH_AUTOCOMPLETE_SUCCESS = '[Address] Address Search Autocomplete Success',
   ADDRESS_SEARCH_AUTOCOMPLETE_ERROR = '[Address] Address Search Autocomplete Error',
+  ADDRESS_SUGGESTIONS_CLEAR = '[Address] Suggestions Cleared'
 }
 
 export const addressSearchAutocomplete = createAction(
@@ -17,10 +18,14 @@ export const addressSearchAutocomplete = createAction(
 
 export const addressSearchAutocompleteSuccess = createAction(
   ACTIONS.ADDRESS_SEARCH_AUTOCOMPLETE_SUCCESS,
-  props<{ addresses: Address[] }>()
+  props<{ addressesSuggestions: Address[] }>()
 );
 
 export const addressSearchAutocompleteError = createAction(
   ACTIONS.ADDRESS_SEARCH_AUTOCOMPLETE_ERROR,
   props<{ error: Error }>()
+);
+
+export const addressSuggestionsClear = createAction(
+  ACTIONS.ADDRESS_SUGGESTIONS_CLEAR
 );

@@ -187,23 +187,14 @@
       <nb-card status="control"
                accent="primary">
         <nb-card-header>Select an Address</nb-card-header>
+
         <nb-card-body>
-            <!-- <input #autoInput
-                  nbInput
-                  type="text"
-                  (input)="onAddress()"
-                  placeholder="Enter value"
-                  [nbAutocomplete]="auto" />
-
-            <nb-autocomplete #auto
-                            (selectedChange)="onSelectionChange($event)">
-
-              <nb-option *ngFor="let option of filteredOptions$ | async"
-                        [value]="option">
-                {{ option }}
-              </nb-option>
-
-            </nb-autocomplete> -->
+          <nb-card>
+            <nb-card-body>
+              <app-address-autocomplete (selectAddress)="onSelectAddress($event)">
+              </app-address-autocomplete>
+            </nb-card-body>
+          </nb-card>
         </nb-card-body>
       </nb-card>
 

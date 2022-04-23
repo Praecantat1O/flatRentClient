@@ -2,8 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const apiUrls = {
+  address: 'http://localhost:5000/api/address/',
+}
 export const environment = {
-  production: false
+  production: false,
+  apiUrls,
 };
 
 /*

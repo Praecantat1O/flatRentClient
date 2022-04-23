@@ -1,0 +1,16 @@
+<form [formGroup]="form">
+  <input #autoInput
+         nbInput
+         fullWidth
+         placeholder="Enter an address"
+         type="text"
+         formControlName="address"
+         [nbAutocomplete]="auto" />
+  <nb-autocomplete #auto
+                   (selectedChange)="onSelectAddress($event)">
+    <nb-option *ngFor="let option of addressSuggestions$ | async"
+               [value]="option.addressStr">
+      {{ option.addressStr }}
+    </nb-option>
+  </nb-autocomplete>
+</form>

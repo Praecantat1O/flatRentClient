@@ -11,7 +11,7 @@ export class AppEffects {
       ofType(AppActions.addressSearchAutocomplete),
       switchMap((item) => {
         return this.addressService.getAddressByString(item.addressToSearch).pipe(
-          map((addresses) => AppActions.addressSearchAutocompleteSuccess({ addresses })),
+          map((addressesSuggestions) => AppActions.addressSearchAutocompleteSuccess({ addressesSuggestions })),
           catchError((error) => of(AppActions.addressSearchAutocompleteError({ error })))
         );
       })

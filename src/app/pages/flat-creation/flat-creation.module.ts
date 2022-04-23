@@ -12,10 +12,15 @@ import {
   NbRadioModule,
   NbCheckboxModule,
   NbAutocompleteModule,
+  NbListModule,
+  NbButtonGroupModule,
+  NbLayoutModule,
 } from '@nebular/theme';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ImgPreviewComponent } from 'src/app/shared/components/img-preview/img-preview.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+
 
 @NgModule({
   declarations: [FlatCreationComponent],
@@ -28,13 +33,17 @@ import { ImgPreviewComponent } from 'src/app/shared/components/img-preview/img-p
     NbCardModule,
     NbInputModule,
     NbFormFieldModule,
+    NbLayoutModule,
+    NbEvaIconsModule,
     NbIconModule,
     NbButtonModule,
     NbRadioModule,
     NbCheckboxModule,
+    NbListModule,
     NbAutocompleteModule,
+    NbButtonGroupModule,
     FontAwesomeModule,
-
+    HttpClientModule,
   ],
 })
-export class FlatCreationModule {}
+export class FlatCreationModule { }

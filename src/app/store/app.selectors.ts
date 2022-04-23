@@ -7,4 +7,4 @@ export const getUserId = createSelector(appState, (state: AppState) => state.use
 
 export const getAddressToSearch = createSelector(appState, (state: AppState) => state.addressToSearch);
 
-export const getAddressesSuggestions = createSelector(appState, (state: AppState) => state.addressesSuggestions);
+export const getAddressesSuggestions = createSelector(appState, (state: AppState) => state.addressesSuggestions.value);

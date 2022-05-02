@@ -19,7 +19,6 @@ import {
 } from '@nebular/theme';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HttpClientModule } from '@angular/common/http';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 
@@ -45,7 +44,6 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbButtonGroupModule,
     NbSpinnerModule,
     FontAwesomeModule,
-    HttpClientModule,
   ],
 })
 export class FlatCreationModule { }

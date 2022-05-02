@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   bathroomDevicesFields,
   flatDevicesMap,
@@ -9,58 +9,24 @@ import {
 } from 'src/app/shared/helpers/flat-fields.helper';
 import { faBath, faFireBurner } from '@fortawesome/free-solid-svg-icons';
 import { Address } from 'src/app/models/address.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import { getUserId, isCreatedFlatIdLoading } from 'src/app/store/app.selectors';
+import { Observable, take } from 'rxjs';
+import { createFlat } from 'src/app/store/app.actions';
+import { IPhotoPreview } from 'src/app/interfaces/photo-preview.interface';
+import { addressValidator } from 'src/app/shared/validators/address.validator';
+import { StateEntity } from 'src/app/store/state.helpers';
 
 @Component({
   selector: 'app-flat-creation',
   templateUrl: './flat-creation.component.html',
   styleUrls: ['./flat-creation.component.scss'],
 })
-export class FlatCreationComponent {
-  constructor(private cdr: ChangeDetectorRef) { }
+export class FlatCreationComponent implements OnInit {
+  constructor(private cdr: ChangeDetectorRef, private store: Store<AppState>) { }
 
-  public newFlatForm: FormGroup = new FormGroup({
-    title: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(100),
-      Validators.minLength(20),
-    ]),
-    rooms: new FormControl(1, [Validators.required]),
-    floor: new FormControl('', [
-      Validators.required,
-      Validators.minLength(0),
-      Validators.maxLength(60),
-    ]),
-    square: new FormControl('', [
-      Validators.minLength(1),
-      Validators.maxLength(5),
-    ]),
-    combinedBathroom: new FormControl(false, Validators.required),
-    balcony: new FormControl(false, Validators.required),
-    devices: new FormGroup({
-      home: new FormGroup({
-        wifi: new FormControl(false, Validators.required),
-        tv: new FormControl(false, Validators.required),
-        conditioner: new FormControl(false, Validators.required),
-      }),
-      bathroom: new FormGroup({
-        shower: new FormControl(false, Validators.required),
-        bath: new FormControl(false, Validators.required),
-        washingMachine: new FormControl(false, Validators.required),
-        dryer: new FormControl(false, Validators.required),
-      }),
-      kitchen: new FormGroup({
-        fridge: new FormControl(false, Validators.required),
-        microwave: new FormControl(false, Validators.required),
-        dishwasher: new FormControl(false, Validators.required),
-        kettle: new FormControl(false, Validators.required),
-        coffee: new FormControl(false, Validators.required),
-      }),
-    }),
-    description: new FormControl('', [Validators.required, Validators.maxLength(400), Validators.minLength(20)]),
-    photosControl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(5)]),
-    photos: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required), // TODO!
-  });
+  public newFlatForm: FormGroup;
 
   public roomsOptions = roomsOptions;
   public homeDevicesFields = homeDevicesFields;
@@ -71,43 +37,153 @@ export class FlatCreationComponent {
   public faBath = faBath;
   public faFireBurner = faFireBurner;
 
-  public photoFiles: any[] = [];
+  public photoPreview: IPhotoPreview[] = [];
+  public photoFiles: File[] = [];
 
-  public onSubmit(): void {
-    console.log(this.newFlatForm.value);
+  public userId$: Observable<StateEntity<number>> = this.store.select(getUserId);
+  public isLoading$: Observable<boolean> = this.store.select(isCreatedFlatIdLoading);
+
+  public ngOnInit(): void {
+    this.newFlatForm = new FormGroup({
+      bedrooms: new FormControl(null, [Validators.required]),
+      info: new FormGroup({
+        floor: new FormControl(null, [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(3),
+          Validators.min(-2),
+          Validators.max(100),
+        ]),
+        square: new FormControl(null, [
+          Validators.maxLength(5),
+          Validators.min(1),
+          Validators.max(100000),
+        ]),
+        combinedBathroom: new FormControl(false),
+        balcony: new FormControl(false),
+      }),
+      devices: new FormGroup({
+        home: new FormGroup({
+          wifi: new FormControl(false),
+          tv: new FormControl(false),
+          conditioner: new FormControl(false),
+        }),
+        bathroom: new FormGroup({
+          shower: new FormControl(false),
+          bath: new FormControl(false),
+          washingMachine: new FormControl(false),
+          dryer: new FormControl(false),
+        }),
+        kitchen: new FormGroup({
+          fridge: new FormControl(false),
+          microwave: new FormControl(false),
+          dishwasher: new FormControl(false),
+          kettle: new FormControl(false),
+          coffee: new FormControl(false),
+        }),
+      }),
+      description: new FormControl('', [Validators.required, Validators.maxLength(400), Validators.minLength(20)]),
+      photosControl: new FormControl(''),
+      photos: new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)]),
+      address: new FormControl('', [Validators.required, addressValidator]),
+      price: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(10),
+        Validators.min(1),
+        Validators.max(10000),
+      ]),
+    });
   }
 
-  public onPhotoUpload(event: any): void {
-    if (event.target.files.length > 0) {
-      const files = event.target.files;
-      [...files].forEach((file: any, index) => {
-        const reader = new FileReader();
+  public onSubmit(): void {
+    this.userId$.pipe(take(1)).subscribe(userId => {
+      const formData = this.getFormData(userId);
 
-        reader.onload = (item) => {
-          const newFile = { id: index, img: item.target?.result as string };
-          this.photoFiles = [...this.photoFiles, newFile];
+      this.store.dispatch(createFlat({ formData }));
+    })
+  }
 
-          this.newFlatForm.patchValue({
-            photos: this.photoFiles,
-          });
-        };
+  public onPhotoUpload(event: Event): void {
+    const files = (event.target as HTMLInputElement).files;
 
-        reader.readAsDataURL(file);
-        this.cdr.markForCheck();
-      });
-      event.target.value = null;
+    if (files.length > 0) {
+      this.photoFiles = this.getPhotoFiles(files);
+      this.createPhotoPreview(files);
+
+      this.cdr.markForCheck();
+
+      (event.target as HTMLInputElement).value = null;
     }
+
+    this.newFlatForm.get('photos').markAsTouched();
   }
 
   public removeImg(id: number): void {
-    this.photoFiles = this.photoFiles.filter((item) => item.id !== id);
+    this.photoPreview = this.photoPreview.filter((item) => item.id !== id);
+    this.photoFiles = this.photoFiles.filter((item, index) => index !== id);
     this.newFlatForm.patchValue({
-      photos: this.photoFiles,
+      photos: this.photoPreview,
     });
     this.cdr.markForCheck();
   }
 
   public onSelectAddress(address: Address): void {
     this.newFlatForm.get('address').patchValue(address);
+  }
+
+  public touchControl(control: AbstractControl): void {
+    control.markAsTouched();
+  }
+
+  private getPhotoFiles(files: FileList): File[] {
+    const photos = [];
+    for (let key in files) {
+      if (files.hasOwnProperty(key)) {
+        photos.push(files[key]);
+      }
+    }
+
+    return photos;
+  }
+
+  private createPhotoPreview(files: FileList): void {
+    [...files].forEach((file: any, index) => {
+      const reader = new FileReader();
+
+      reader.onload = (item) => {
+        const newFile: IPhotoPreview = { id: index, img: item.target?.result as string };
+
+        this.photoPreview = [...this.photoPreview, newFile];
+
+        this.newFlatForm.patchValue({
+          photos: this.photoPreview,
+          photosControl: null,
+        });
+      };
+
+      reader.readAsDataURL(file);
+    });
+  }
+
+  private getFormData(userId: StateEntity<number>): FormData {
+    const formData = new FormData();
+
+    const flat = JSON.stringify({
+      price: this.newFlatForm.get('price').value,
+      bedrooms: this.newFlatForm.get('bedrooms').value,
+      description: this.newFlatForm.get('description').value,
+      address: this.newFlatForm.get('address').value,
+      userId: userId.value,
+    });
+    const info = JSON.stringify(this.newFlatForm.get('info').value);
+    const devices = JSON.stringify(this.newFlatForm.get('devices').value);
+
+    this.photoFiles.forEach(photo => formData.append('photos', photo));
+    formData.append('flat', flat);
+    formData.append('info', info);
+    formData.append('devices', devices);
+
+    return formData;
   }
 }

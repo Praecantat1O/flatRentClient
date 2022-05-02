@@ -4,6 +4,7 @@
 
 const apiUrls = {
   address: 'http://localhost:5000/api/address/',
+  flat: 'http://localhost:5000/api/flat/',
 }
 export const environment = {
   production: false,

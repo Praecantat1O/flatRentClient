@@ -22,16 +22,16 @@ export const kitchenDevicesFields = [
 export const flatDevicesMap = new Map([
   ['wifi', 'WiFi'],
   ['tv', 'TV'],
-  ['conditioner', 'Conditioner'],
-  ['shower', 'Shower'],
-  ['bath', 'Bath'],
-  ['washingMachine', 'Washing Machine'],
-  ['dryer', 'Dryer'],
-  ['fridge', 'Fridge'],
-  ['microwave', 'Microwave'],
-  ['dishwasher', 'Dishwasher'],
-  ['kettle', 'Kettle'],
-  ['coffee', 'Coffee Maker'],
+  ['conditioner', 'Кондиционер'],
+  ['shower', 'Душ'],
+  ['bath', 'Ванна'],
+  ['washingMachine', 'Стиральная машина'],
+  ['dryer', 'Фен'],
+  ['fridge', 'Холодильник'],
+  ['microwave', 'Микроволновая печь'],
+  ['dishwasher', 'Посудомоечная машина'],
+  ['kettle', 'Чайник'],
+  ['coffee', 'Кофеварка'],
 ]);
 
 export const roomsOptions = [

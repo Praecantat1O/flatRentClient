@@ -25,7 +25,7 @@
     &--centered {
       display: flex;
       align-items: center;
-      line-height: 0.5;
+      line-height: 1;
     }
   }
 
@@ -44,15 +44,35 @@
   &__group {
     display: flex;
     flex-direction: row;
+    height: 30px;
   }
 
   &__textarea {
     min-height: 100px;
     max-height: 300px;
   }
+
+  &__checkbox {
+    line-height: 0.5;
+  }
+
+  &__address {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__address-item:first-child {
+    flex-basis: 50%;
+  }
+
+  &__address-item:last-child {
+    flex-basis: 45%;
+  }
 }
 
 .file-input {
+  width: 200px;
+
   &__invisible {
     opacity: 0;
     width: 200px;

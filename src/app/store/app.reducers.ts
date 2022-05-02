@@ -28,7 +28,12 @@ export const appReducer = createReducer(
   on(AppActions.addressSearchAutocompleteError, (state, { error }) => {
     return {
       ...state,
-      error,
+      addressesSuggestions: {
+        ...state.addressesSuggestions,
+        value: null,
+        status: EntityStatus.Error,
+        error,
+      },
     };
   }),
   on(AppActions.addressSuggestionsClear, (state) => {
@@ -38,6 +43,43 @@ export const appReducer = createReducer(
         ...state.addressesSuggestions,
         value: null,
         status: EntityStatus.Init,
+      },
+    };
+  }),
+  on(AppActions.addressSearchClear, (state) => {
+    return {
+      ...state,
+      addressToSearch: null,
+    };
+  }),
+  on(AppActions.createFlat, (state) => {
+    return {
+      ...state,
+      createdFlatId: {
+        ...state.createdFlatId,
+        value: null,
+        status: EntityStatus.Pending,
+      },
+    };
+  }),
+  on(AppActions.createFlatSuccess, (state, { createdFlatId }) => {
+    return {
+      ...state,
+      createdFlatId: {
+        ...state.createdFlatId,
+        value: createdFlatId,
+        status: EntityStatus.Success,
+      },
+    };
+  }),
+  on(AppActions.createFlatError, (state, { error }) => {
+    return {
+      ...state,
+      createdFlatId: {
+        ...state.createdFlatId,
+        value: null,
+        status: EntityStatus.Error,
+        error,
       },
     };
   })

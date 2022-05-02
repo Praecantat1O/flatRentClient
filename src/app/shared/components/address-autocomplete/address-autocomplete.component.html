@@ -1,17 +1,26 @@
-<form [formGroup]="form">
+<form [formGroup]="form"
+      [nbSpinner]="isLoading$ | async"
+      nbSpinnerStatus="info"
+      nbSpinnerSize="small">
   <input #autoInput
          nbInput
          fullWidth
-         placeholder="Enter an address"
+         fieldSize="small"
+         placeholder="Введите адрес"
          type="text"
          formControlName="address"
          [nbAutocomplete]="auto" />
   <nb-autocomplete #auto
                    size="small"
                    (selectedChange)="onSelectAddress($event)">
-    <nb-option *ngFor="let option of addressSuggestions$ | async"
+    <nb-option *ngFor="let option of (addressSuggestions$ | async).value"
                [value]="option.addressStr">
       {{ option.addressStr }}
     </nb-option>
   </nb-autocomplete>
 </form>
+
+<p *ngIf="isSuggestionEmpty"
+   class="hint caption-2 text-hint">
+  Ничего не найдено. Пожалуйста, внесите изменения для повторного поиска.
+</p>

@@ -1,35 +1,26 @@
 <nb-card size="giant"
          status="primary"
-         class="card">
+         class="card"
+         [nbSpinner]="isLoading$ | async"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="giant">
   <nb-card-header>
-    <h2>Create New Flat Advertisement</h2>
+    <h2>Создание новое объявление</h2>
   </nb-card-header>
   <nb-card-body>
     <form class="form"
           [formGroup]="newFlatForm"
-          (ngSubmit)="onSubmit()">
-
+          (ngSubmit)="onSubmit()"
+          #form>
       <nb-card status="control"
-               accent="primary">
-        <nb-card-header>Write a title</nb-card-header>
-        <nb-card-body>
-          <nb-form-field class="form__item">
-            <input nbInput
-                   type="text"
-                   placeholder="Title"
-                   fieldSize="large"
-                   formControlName="title">
-          </nb-form-field>
-        </nb-card-body>
-      </nb-card>
-
-      <nb-card status="control"
-               accent="primary">
-        <nb-card-header>Number Of Rooms</nb-card-header>
+               [accent]="newFlatForm.get('bedrooms').invalid &&
+               (newFlatForm.touched ||
+               newFlatForm.dirty) ? 'danger' : 'primary'">
+        <nb-card-header>Количество спальных комнат</nb-card-header>
         <nb-card-body>
           <div class="form__item">
             <nb-radio-group class="form__group"
-                            formControlName="rooms">
+                            formControlName="bedrooms">
               <nb-radio *ngFor="let option of roomsOptions"
                         [value]="option.value">
                 {{ option.label }}
@@ -40,42 +31,50 @@
       </nb-card>
 
       <nb-card status="control"
-               accent="primary">
-        <nb-card-header>General Information:</nb-card-header>
-        <nb-card-body>
+               [accent]="newFlatForm.get('info').invalid &&
+               (newFlatForm.get('info').touched ||
+               newFlatForm.get('info').dirty) ? 'danger' : 'primary'">
+        <nb-card-header>Общая информация</nb-card-header>
+        <nb-card-body formGroupName="info">
           <div class="form__item form__item--centered form__item--vertical">
             <nb-checkbox formControlName="combinedBathroom"></nb-checkbox>
             <span class="form__item-name form__item-name--right">
-              Combined bathroom
+              Совмещенный санузел
             </span>
           </div>
           <div class="form__item form__item--centered form__item--vertical">
             <nb-checkbox formControlName="balcony"></nb-checkbox>
             <span class="form__item-name form__item-name--right">
-              Balcony
+              Балкон
             </span>
           </div>
           <div class="form__item form__item--vertical">
-            <p class="form__input-label">Floor:</p>
+            <p class="form__input-label">Этаж:</p>
             <nb-form-field>
               <input nbInput
                      class="form__input"
-                     type="text"
-                     placeholder="Floor"
+                     type="number"
+                     placeholder="Этаж"
                      fieldSize="small"
-                     formControlName="floor">
+                     formControlName="floor"
+                     [status]="newFlatForm.get('info').get('floor').errors &&
+                     (newFlatForm.get('info').get('floor').touched ||
+                     newFlatForm.get('info').get('floor').dirty)? 'danger' : 'basic'">
             </nb-form-field>
           </div>
 
           <div class="form__item form__item--vertical">
-            <p class="form__input-label">Square:</p>
+            <p class="form__input-label">Площадь:</p>
             <nb-form-field>
               <input nbInput
                      class="form__input"
-                     type="text"
-                     placeholder="Square, sq.m"
+                     type="number"
+                     placeholder="Площадь, кв.м."
                      fieldSize="small"
-                     formControlName="square">
+                     formControlName="square"
+                     [status]="newFlatForm.get('info').get('square').errors &&
+                     (newFlatForm.get('info').get('square').touched ||
+                     newFlatForm.get('info').get('square').dirty)? 'danger' : 'basic'">
             </nb-form-field>
           </div>
         </nb-card-body>
@@ -83,20 +82,21 @@
 
       <nb-card status="control"
                accent="primary">
-        <nb-card-header>Devices</nb-card-header>
+        <nb-card-header>Удобства</nb-card-header>
         <nb-card-body>
           <div formGroupName="devices">
             <nb-card>
               <nb-card-header class="card__header">
                 <nb-icon class="card__icon"
-                         icon="home-outline"></nb-icon><span>Home</span>
+                         icon="home-outline"></nb-icon><span>Дом</span>
               </nb-card-header>
               <nb-card-body>
                 <div class="form__group"
                      formGroupName="home">
                   <ng-container *ngFor="let field of homeDevicesFields">
                     <div class="form__item form__item--horizontal form__item--centered">
-                      <nb-checkbox formControlName="{{field}}"></nb-checkbox>
+                      <nb-checkbox class="form__checkbox"
+                                   formControlName="{{field}}"></nb-checkbox>
                       <span class="form__item-name">
                         {{devicesMap.get(field)}}
                       </span>
@@ -109,14 +109,15 @@
             <nb-card>
               <nb-card-header class="card__header">
                 <fa-icon class="card__icon"
-                         [icon]="faBath"></fa-icon><span>Bathroom</span>
+                         [icon]="faBath"></fa-icon><span>Ванная</span>
               </nb-card-header>
               <nb-card-body>
                 <div class="form__group"
                      formGroupName="bathroom">
                   <ng-container *ngFor="let field of bathroomDevicesFields">
                     <div class="form__item form__item--horizontal form__item--centered">
-                      <nb-checkbox formControlName="{{field}}"></nb-checkbox>
+                      <nb-checkbox class="form__checkbox"
+                                   formControlName="{{field}}"></nb-checkbox>
                       <span class="form__item-name">
                         {{devicesMap.get(field)}}
                       </span>
@@ -129,14 +130,15 @@
             <nb-card>
               <nb-card-header class="card__header">
                 <fa-icon class="card__icon"
-                         [icon]="faFireBurner"></fa-icon><span>Kitchen</span>
+                         [icon]="faFireBurner"></fa-icon><span>Кухня</span>
               </nb-card-header>
               <nb-card-body>
                 <div class="form__group"
                      formGroupName="kitchen">
                   <ng-container *ngFor="let field of kitchenDevicesFields">
                     <div class="form__item form__item--horizontal form__item--centered">
-                      <nb-checkbox formControlName="{{field}}"></nb-checkbox>
+                      <nb-checkbox class="form__checkbox"
+                                   formControlName="{{field}}"></nb-checkbox>
                       <span class="form__item-name">
                         {{devicesMap.get(field)}}
                       </span>
@@ -150,54 +152,80 @@
       </nb-card>
 
       <nb-card status="control"
-               accent="primary">
-        <nb-card-header>Description</nb-card-header>
+               [accent]="newFlatForm.get('description').invalid &&
+               (newFlatForm.get('description').touched ||
+               newFlatForm.get('description').dirty) ? 'danger' : 'primary'">
+        <nb-card-header>Описание</nb-card-header>
         <nb-card-body>
           <textarea nbInput
                     class="form__textarea"
                     formControlName="description"
                     fullWidth
                     maxlength="400"
-                    placeholder="Please, write a little about your apartments"></textarea>
+                    placeholder="Пожалуйста, напишите немного о квартире"></textarea>
         </nb-card-body>
       </nb-card>
 
       <nb-card status="control"
-               accent="primary">
-        <nb-card-header>Add Photos</nb-card-header>
+               [accent]="newFlatForm.get('photos').invalid &&
+               (newFlatForm.get('photos').touched ||
+               newFlatForm.get('photos').dirty) ? 'danger' : 'primary'">
+        <nb-card-header>Добавьте фотографии</nb-card-header>
         <nb-card-body>
-          <div class="file-input">
+          <div class="file-input"
+               (click)="touchControl(newFlatForm.get('photos'))">
             <button class="file-input__visible"
                     nbButton
                     hero
-                    status="primary">Upload Your Photos</button>
+                    status="primary">Загрузить фото</button>
             <input type="file"
                    nbInput
                    multiple
+                   accept="image/*"
                    class="file-input__invisible"
                    formControlName="photosControl"
                    (change)="onPhotoUpload($event)">
           </div>
-          <app-img-preview *ngIf="photoFiles.length > 0"
-                           [files]="photoFiles"
+          <app-img-preview *ngIf="photoPreview.length > 0"
+                           [files]="photoPreview"
                            (remove)="removeImg($event)"></app-img-preview>
         </nb-card-body>
       </nb-card>
 
       <nb-card status="control"
-               accent="primary"
-               size="tiny">
-        <nb-card-header>Select an Address</nb-card-header>
+               size="small"
+               [accent]="newFlatForm.get('address').invalid &&
+               (newFlatForm.get('address').touched ||
+               newFlatForm.get('address').dirty) ? 'danger' : 'primary'">
+        <nb-card-header>Выберите адрес</nb-card-header>
         <nb-card-body>
-              <app-address-autocomplete (selectAddress)="onSelectAddress($event)">
-              </app-address-autocomplete>
+          <div class="form__address">
+            <app-address-autocomplete class="form__address-item"
+                                      (selectAddress)="onSelectAddress($event)"
+                                      (click)="touchControl(newFlatForm.get('address'))">
+            </app-address-autocomplete>
+            <app-address class="form__address-item"
+                         [address]="newFlatForm.get('address').value"></app-address>
+          </div>
+        </nb-card-body>
+      </nb-card>
+      <nb-card status="control"
+               [accent]="newFlatForm.get('price').invalid &&
+               (newFlatForm.get('price').touched ||
+               newFlatForm.get('price').dirty) ? 'danger' : 'primary'">
+        <nb-card-header>Укажите цену в BYN</nb-card-header>
+        <nb-card-body>
+          <input type="number"
+                 nbInput
+                 placeholder="Цена, BYN"
+                 formControlName="price">
         </nb-card-body>
       </nb-card>
 
       <button nbButton
               class="form__button"
               type="submit"
-              status="primary">Send</button>
+              status="primary">Создать объявление</button>
     </form>
   </nb-card-body>
 </nb-card>

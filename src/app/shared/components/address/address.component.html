@@ -1,0 +1,27 @@
+<div class="address"
+     *ngIf="address">
+  <p>
+    <span class="subtitle">Полный адрес: </span>
+    <span class="caption">{{ address.addressStr }}</span>
+  </p>
+  <p>
+    <span class="subtitle">Область: </span>
+    <span class="caption">{{ address.region }}</span>
+  </p>
+  <p>
+    <span class="subtitle">Город\Деревня: </span>
+    <span class="caption">{{ address.placeName }}</span>
+  </p>
+  <p>
+    <span class="subtitle">Район: </span>
+    <span class="caption">{{ address.district }}</span>
+  </p>
+  <p>
+    <span class="subtitle">Улица: </span>
+    <span class="caption">{{ address.road }}</span>
+  </p>
+  <p>
+    <span class="subtitle">Номер дома: </span>
+    <span class="caption">{{ address.houseNumber }}</span>
+  </p>
+</div>

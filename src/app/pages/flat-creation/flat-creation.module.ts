@@ -15,6 +15,7 @@ import {
   NbListModule,
   NbButtonGroupModule,
   NbLayoutModule,
+  NbSpinnerModule,
 } from '@nebular/theme';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -42,6 +43,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbListModule,
     NbAutocompleteModule,
     NbButtonGroupModule,
+    NbSpinnerModule,
     FontAwesomeModule,
     HttpClientModule,
   ],

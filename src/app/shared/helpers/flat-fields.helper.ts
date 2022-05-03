@@ -1,22 +1,24 @@
+import { IBathroomDevices, IHomeDevices, IKitchenDevices } from 'src/app/interfaces/devices.interface';
+
 export const homeDevicesFields = [
-  'wifi',
-  'tv',
-  'conditioner',
+  'wifi' as keyof IHomeDevices,
+  'tv' as keyof IHomeDevices,
+  'conditioner' as keyof IHomeDevices,
 ];
 
 export const bathroomDevicesFields = [
-  'shower',
-  'bath',
-  'washingMachine',
-  'dryer',
+  'shower' as keyof IBathroomDevices,
+  'bath' as keyof IBathroomDevices,
+  'washingMachine' as keyof IBathroomDevices,
+  'dryer' as keyof IBathroomDevices,
 ];
 
 export const kitchenDevicesFields = [
-  'fridge',
-  'microwave',
-  'dishwasher',
-  'kettle',
-  'coffee',
+  'fridge' as keyof IKitchenDevices,
+  'microwave' as keyof IKitchenDevices,
+  'dishwasher' as keyof IKitchenDevices,
+  'kettle' as keyof IKitchenDevices,
+  'coffee' as keyof IKitchenDevices,
 ];
 
 export const flatDevicesMap = new Map([
@@ -34,7 +36,7 @@ export const flatDevicesMap = new Map([
   ['coffee', 'Кофеварка'],
 ]);
 
-export const roomsOptions = [
+export const bedroomsOptions = [
   { value: 1, label: '1' },
   { value: 2, label: '2' },
   { value: 3, label: '3' },

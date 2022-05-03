@@ -5,7 +5,7 @@ import {
   flatDevicesMap,
   homeDevicesFields,
   kitchenDevicesFields,
-  roomsOptions,
+  bedroomsOptions,
 } from 'src/app/shared/helpers/flat-fields.helper';
 import { faBath, faFireBurner } from '@fortawesome/free-solid-svg-icons';
 import { Address } from 'src/app/models/address.model';
@@ -28,7 +28,7 @@ export class FlatCreationComponent implements OnInit {
 
   public newFlatForm: FormGroup;
 
-  public roomsOptions = roomsOptions;
+  public bedroomsOptions = bedroomsOptions;
   public homeDevicesFields = homeDevicesFields;
   public bathroomDevicesFields = bathroomDevicesFields;
   public kitchenDevicesFields = kitchenDevicesFields;
@@ -82,7 +82,7 @@ export class FlatCreationComponent implements OnInit {
           coffee: new FormControl(false),
         }),
       }),
-      description: new FormControl('', [Validators.required, Validators.maxLength(400), Validators.minLength(20)]),
+      description: new FormControl('', [Validators.required, Validators.maxLength(800), Validators.minLength(20)]),
       photosControl: new FormControl(''),
       photos: new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)]),
       address: new FormControl('', [Validators.required, addressValidator]),

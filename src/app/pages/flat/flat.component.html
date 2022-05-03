@@ -1,1 +1,150 @@
-<p>flat works!</p>
+<nb-card *ngIf="flat">
+  <nb-card-body>
+    <div class="flat">
+      <div class="flat__top">
+        <div class="gallery">
+          <app-gallery-thumbs [photoUrls]="flat.photo.photoUrls"></app-gallery-thumbs>
+        </div>
+        <div>
+          <nb-card status="primary"
+                   class="sidebar-card-outer">
+            <nb-card-header>{{flat.address.addressStr}}</nb-card-header>
+            <nb-card-body class="flat__sidebar">
+              <div class="flat__sidebar-top">
+                <div class="user">
+                  <nb-user [name]="user.name"
+                           [title]="user.phone"
+                           size="medium">
+                  </nb-user>
+                </div>
+                <div class="flat-price">
+                  <span class="h2 flat-price__value">{{flat.price}}</span>
+                  <span class="subtitle flat-price-subtitle">BYN за сутки</span>
+                </div>
+              </div>
+              <div class="flat__sidebar-calendar">
+                <nb-card size="small"
+                         class="sidebar-card-inner">
+                  <nb-card-body>
+                    Calendar
+                  </nb-card-body>
+                </nb-card>
+              </div>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+
+      <div class="flat__info">
+        <h2 class="flat__info-header h2">Основная информация:</h2>
+        <div class="info-list">
+          <div class="info-list__item">
+            <div class="item-label">
+              <span class="item-label__text subtitle">Объявление создано</span>
+              <span class="item-label__filler"></span>
+            </div>
+            <div class="info-list__item-content">
+              {{flat.createdAt | date : 'medium'}}
+            </div>
+          </div>
+
+          <div class="info-list__item">
+            <div class="item-label">
+              <span class="item-label__text subtitle">Количество спальных комнат</span>
+              <span class="item-label__filler"></span>
+            </div>
+            <div class="info-list__item-content">
+              {{flat.bedrooms}}
+            </div>
+          </div>
+
+          <div class="info-list__item">
+            <div class="item-label">
+              <span class="item-label__text subtitle">Этаж</span>
+              <span class="item-label__filler"></span>
+            </div>
+            <div class="info-list__item-content">
+              {{flat.info.floor}}
+            </div>
+          </div>
+
+          <div class="info-list__item">
+            <div class="item-label">
+              <span class="item-label__text subtitle">Площадь</span>
+              <span class="item-label__filler"></span>
+            </div>
+            <div class="info-list__item-content">
+              {{flat.info.square}} кв.м.
+            </div>
+          </div>
+
+          <div class="info-list__item">
+            <div class="item-label">
+              <span class="item-label__text subtitle">Совмещенный санузел</span>
+              <span class="item-label__filler"></span>
+            </div>
+            <div class="info-list__item-content">
+              {{flat.info.combinedBathroom ? 'Да' : 'Нет'}}
+            </div>
+          </div>
+
+          <div class="info-list__item">
+            <div class="item-label">
+              <span class="item-label__text subtitle">Балкон</span>
+              <span class="item-label__filler"></span>
+            </div>
+            <div class="info-list__item-content">
+              {{flat.info.balcony ? 'Да' : 'Нет'}}
+            </div>
+          </div>
+
+          <div class="info-list__item">
+            <div class="item-label">
+              <span class="item-label__text subtitle">Обустройство быта</span>
+              <span class="item-label__filler"></span>
+            </div>
+            <ng-container *ngFor="let device of homeDevicesFields">
+              <div class="info-list__item-content info-list__item-content--device"
+                   *ngIf="flat.devices.home[device]">
+                {{ flat.devices.home[device] ? devicesMap.get(device) : ''}}
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="info-list__item">
+            <div class="item-label">
+              <span class="item-label__text subtitle">Ванная комната</span>
+              <span class="item-label__filler"></span>
+            </div>
+            <ng-container *ngFor="let device of bathroomDevicesFields">
+              <div class="info-list__item-content info-list__item-content--device"
+                   *ngIf="flat.devices.bathroom[device]">
+                {{ flat.devices.bathroom[device] ? devicesMap.get(device) : ''}}
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="info-list__item">
+            <div class="item-label">
+              <span class="item-label__text subtitle">Кухня</span>
+              <span class="item-label__filler"></span>
+            </div>
+            <ng-container *ngFor="let device of kitchenDevicesFields">
+              <div class="info-list__item-content info-list__item-content--device"
+                   *ngIf="flat.devices.kitchen[device]">
+                {{ flat.devices.kitchen[device] ? devicesMap.get(device) : ''}}
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="info-list__description">
+            <p class="subtitle">Описание:</p>
+            <p class="info-list__description-text">{{flat.description}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="map"></div>
+    </div>
+  </nb-card-body>
+</nb-card>

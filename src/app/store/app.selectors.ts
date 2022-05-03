@@ -18,3 +18,4 @@ export const isCreatedFlatIdLoading = createSelector(appState, (state: AppState)
 // eslint-disable-next-line max-len
 export const isSuggestionsLoading = createSelector(appState, (state: AppState) => state.addressesSuggestions.status === EntityStatus.Pending);
 
+export const getFlatPage = createSelector(appState, (state: AppState) => state.flatPage);

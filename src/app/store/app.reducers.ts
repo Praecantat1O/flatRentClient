@@ -29,7 +29,6 @@ export const appReducer = createReducer(
     return {
       ...state,
       addressesSuggestions: {
-        ...state.addressesSuggestions,
         value: null,
         status: EntityStatus.Error,
         error,
@@ -76,7 +75,36 @@ export const appReducer = createReducer(
     return {
       ...state,
       createdFlatId: {
-        ...state.createdFlatId,
+        value: null,
+        status: EntityStatus.Error,
+        error,
+      },
+    };
+  }),
+  on(AppActions.loadFlatPage, (state) => {
+    return {
+      ...state,
+      flatPage: {
+        ...state.flatPage,
+        value: null,
+        status: EntityStatus.Pending,
+      },
+    };
+  }),
+  on(AppActions.loadFlatPageSuccess, (state, { flatPage }) => {
+    return {
+      ...state,
+      flatPage: {
+        ...state.flatPage,
+        value: flatPage,
+        status: EntityStatus.Success,
+      },
+    };
+  }),
+  on(AppActions.loadFlatPageError, (state, { error }) => {
+    return {
+      ...state,
+      flatPage: {
         value: null,
         status: EntityStatus.Error,
         error,

@@ -11,7 +11,7 @@ import { Photos } from './photos.model';
 export class Flat implements IFlat {
   public id: number;
   public price: number;
-  public rooms: number;
+  public bedrooms: number;
   public description: string;
   public photo: IPhotos;
   public address: IAddress;
@@ -23,7 +23,7 @@ export class Flat implements IFlat {
   constructor(flat: IFlat) {
     this.id = flat.id;
     this.price = flat.price;
-    this.rooms = flat.rooms;
+    this.bedrooms = flat.bedrooms;
     this.description = flat.description;
     this.photo = new Photos(flat.photo);
     this.address = new Address(flat.address);

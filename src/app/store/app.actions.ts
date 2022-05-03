@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { IFlatUser } from '../interfaces/flat-user.interface';
 import { Address } from '../models/address.model';
 
 enum ACTIONS {
@@ -13,6 +14,9 @@ enum ACTIONS {
   CREATE_FLAT = '[Flat] Create Flat',
   CREATE_FLAT_SUCCESS = '[Flat] Create Flat Success',
   CREATE_FLAT_ERROR = '[Flat] Create Flat Error',
+  LOAD_FLAT_PAGE = '[Flat] Load Flat Page',
+  LOAD_FLAT_PAGE_SUCCESS = '[Flat] Load Flat Page Success',
+  LOAD_FLAT_PAGE_ERROR = '[Flat] Load Flat Page Error',
 }
 
 export const addressSearchAutocomplete = createAction(
@@ -50,5 +54,20 @@ export const createFlatSuccess = createAction(
 
 export const createFlatError = createAction(
   ACTIONS.CREATE_FLAT_ERROR,
+  props<{ error: Error }>()
+);
+
+export const loadFlatPage = createAction(
+  ACTIONS.LOAD_FLAT_PAGE,
+  props<{ id: string }>()
+);
+
+export const loadFlatPageSuccess = createAction(
+  ACTIONS.LOAD_FLAT_PAGE_SUCCESS,
+  props<{ flatPage: IFlatUser }>()
+);
+
+export const loadFlatPageError = createAction(
+  ACTIONS.LOAD_FLAT_PAGE_ERROR,
   props<{ error: Error }>()
 );

@@ -21,7 +21,7 @@
           <div class="form__item">
             <nb-radio-group class="form__group"
                             formControlName="bedrooms">
-              <nb-radio *ngFor="let option of roomsOptions"
+              <nb-radio *ngFor="let option of bedroomsOptions"
                         [value]="option.value">
                 {{ option.label }}
               </nb-radio>
@@ -161,7 +161,7 @@
                     class="form__textarea"
                     formControlName="description"
                     fullWidth
-                    maxlength="400"
+                    maxlength="800"
                     placeholder="Пожалуйста, напишите немного о квартире"></textarea>
         </nb-card-body>
       </nb-card>

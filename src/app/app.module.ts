@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './store/app.effects';
+
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu, 'ru');
 
 @NgModule({
   declarations: [
@@ -29,7 +34,9 @@ import { AppEffects } from './store/app.effects';
     NbLayoutModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'ru' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

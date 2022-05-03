@@ -4,6 +4,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AppActions from './app.actions';
 import { AddressService } from '../services/address.service';
 import { FlatService } from '../services/flat.service';
+import { IFlatUser } from '../interfaces/flat-user.interface';
+import { Flat } from '../models/flat.model';
+import { User } from '../models/user.model';
 
 @Injectable()
 export class AppEffects {
@@ -31,6 +34,24 @@ export class AppEffects {
         return this.flatService.createFlat(item.formData).pipe(
           map((response) => AppActions.createFlatSuccess(response.flatId)),
           catchError((error) => of(AppActions.createFlatError({ error })))
+        );
+      })
+    )
+  );
+
+  public loadFlatPage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.loadFlatPage),
+      switchMap((item) => {
+        return this.flatService.getFlatById(item.id).pipe(
+          map((value: IFlatUser) => {
+            const flat = new Flat(value.flat);
+            const user = new User(value.user);
+
+            return { flat, user };
+          }),
+          map((flatPage) => AppActions.loadFlatPageSuccess({ flatPage })),
+          catchError((error) => of(AppActions.loadFlatPageError({ error })))
         );
       })
     )

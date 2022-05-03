@@ -6,7 +6,7 @@ import { IPhotos } from './photos.interface';
 export interface IFlat {
   id: number;
   price: number;
-  rooms: number;
+  bedrooms: number;
   description: string;
   photo: IPhotos;
   address: IAddress;

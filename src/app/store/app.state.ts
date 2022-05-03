@@ -1,3 +1,4 @@
+import { IFlatUser } from '../interfaces/flat-user.interface';
 import { Address } from '../models/address.model';
 import { EntityStatus, StateEntity } from './state.helpers';
 
@@ -6,6 +7,7 @@ export interface AppState {
   addressesSuggestions: StateEntity<Address[]>;
   addressToSearch: string;
   createdFlatId: StateEntity<number>;
+  flatPage: StateEntity<IFlatUser>;
 }
 
 export const initialState: AppState = {
@@ -20,6 +22,11 @@ export const initialState: AppState = {
     error: null,
   },
   createdFlatId: {
+    status: EntityStatus.Init,
+    value: null,
+    error: null,
+  },
+  flatPage: {
     status: EntityStatus.Init,
     value: null,
     error: null,

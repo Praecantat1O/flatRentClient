@@ -1,0 +1,86 @@
+.sidebar-card-outer {
+  height: 500px;
+}
+
+.sidebar-card-inner {
+  margin-bottom: 0px;
+}
+
+.flat {
+  &__top {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 500px;
+  }
+
+  &__sidebar-top {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__info {
+    width: 70%;
+  }
+
+  &__info-header {
+    margin-bottom: 10px;
+  }
+}
+
+.flat-price {
+  &__value {
+    margin-right: 5px;
+  }
+}
+
+.gallery {
+  flex-basis: 60%;
+}
+
+.info-list {
+  margin-bottom: 10px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  &__item-content--device {
+    margin-right: 5px;
+  }
+
+  &__item-content--device::after {
+    content: ',';
+  }
+
+  &__item-content--device:last-child::after {
+    content: '';
+  }
+
+  &__description-text {
+    max-width: 85%;
+  }
+}
+
+.item-label {
+  display: flex;
+  min-width: 25%;
+  margin-right: 5px;
+
+  &__filler {
+    flex-grow: 1;
+    border-bottom: 1px dotted gray;
+    margin-left: 5px;
+  }
+}

@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 const apiUrls = {
+  host: 'http://localhost:5000/',
   address: 'http://localhost:5000/api/address/',
   flat: 'http://localhost:5000/api/flat/',
 }

@@ -96,6 +96,14 @@ export class FlatCreationComponent implements OnInit {
     });
   }
 
+  public get photosErrors() {
+    return this.newFlatForm.get('photos')?.errors;
+  }
+
+  public get descriptionErrors() {
+    return this.newFlatForm.get('description')?.errors;
+  }
+
   public onSubmit(): void {
     this.userId$.pipe(take(1)).subscribe(userId => {
       const formData = this.getFormData(userId);

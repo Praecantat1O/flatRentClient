@@ -163,6 +163,10 @@
                     fullWidth
                     maxlength="800"
                     placeholder="Пожалуйста, напишите немного о квартире"></textarea>
+          <div class="hint caption"
+               *ngIf="descriptionErrors?.['minlength']">Не хватает еще
+            {{descriptionErrors['minlength'].requiredLength - descriptionErrors['minlength'].actualLength}} символов
+          </div>
         </nb-card-body>
       </nb-card>
 
@@ -170,7 +174,7 @@
                [accent]="newFlatForm.get('photos').invalid &&
                (newFlatForm.get('photos').touched ||
                newFlatForm.get('photos').dirty) ? 'danger' : 'primary'">
-        <nb-card-header>Добавьте фотографии</nb-card-header>
+        <nb-card-header>Добавьте фотографии <span class="caption">от 2 до 10</span></nb-card-header>
         <nb-card-body>
           <div class="file-input"
                (click)="touchControl(newFlatForm.get('photos'))">
@@ -189,6 +193,10 @@
           <app-img-preview *ngIf="photoPreview.length > 0"
                            [files]="photoPreview"
                            (remove)="removeImg($event)"></app-img-preview>
+          <div class="hint caption"
+               *ngIf="photosErrors?.['minlength']">Пожалуйста, загрузите больше, чем 1 фото.</div>
+          <div class="hint caption"
+               *ngIf="photosErrors?.['maxlength']">Пожалуйста, загрузите не более 10 фото.</div>
         </nb-card-body>
       </nb-card>
 

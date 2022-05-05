@@ -43,3 +43,11 @@ nb-checkbox .native-input:focus:not(:checked) + .custom-checkbox {
 nb-checkbox .native-input:focus:not(:checked) + .custom-checkbox:not(:hover):not(:active) {
   box-shadow: none;
 }
+
+nb-radio .text {
+  line-height: unset;
+}
+
+.hint {
+  margin-top: 5px;
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, catchError, of, switchMap } from 'rxjs';
+import { map, catchError, of, switchMap, delay } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AppActions from './app.actions';
 import { AddressService } from '../services/address.service';
@@ -15,6 +15,7 @@ export class AppEffects {
       ofType(AppActions.addressSearchAutocomplete),
       switchMap((item) => {
         return this.addressService.getAddressByString(item.addressToSearch).pipe(
+          delay(500),
           map((addressesSuggestions) => {
             if (addressesSuggestions.length === 0) {
               addressesSuggestions = null;
@@ -32,6 +33,7 @@ export class AppEffects {
       ofType(AppActions.createFlat),
       switchMap((item) => {
         return this.flatService.createFlat(item.formData).pipe(
+          delay(500),
           map((response) => AppActions.createFlatSuccess(response.flatId)),
           catchError((error) => of(AppActions.createFlatError({ error })))
         );
@@ -44,6 +46,7 @@ export class AppEffects {
       ofType(AppActions.loadFlatPage),
       switchMap((item) => {
         return this.flatService.getFlatById(item.id).pipe(
+          delay(500),
           map((value: IFlatUser) => {
             const flat = new Flat(value.flat);
             const user = new User(value.user);
@@ -52,6 +55,20 @@ export class AppEffects {
           }),
           map((flatPage) => AppActions.loadFlatPageSuccess({ flatPage })),
           catchError((error) => of(AppActions.loadFlatPageError({ error })))
+        );
+      })
+    )
+  );
+
+  public loadAllFlats$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.loadAllFlats),
+      switchMap(() => {
+        return this.flatService.getAll().pipe(
+          delay(500),
+          map(flats => flats.map(flat => new Flat(flat))),
+          map((flats) => AppActions.loadAllFlatsSuccess({ flats })),
+          catchError((error) => of(AppActions.loadAllFlatsError({ error })))
         );
       })
     )

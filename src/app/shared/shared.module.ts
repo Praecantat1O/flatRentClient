@@ -17,6 +17,8 @@ import { ImgPreviewComponent } from './components/img-preview/img-preview.compon
 import { AddressAutocompleteComponent } from './components/address-autocomplete/address-autocomplete.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddressComponent } from './components/address/address.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { AddressComponent } from './components/address/address.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     NbLayoutModule,
     NbEvaIconsModule,
     NbCardModule,
@@ -38,11 +41,14 @@ import { AddressComponent } from './components/address/address.component';
     NbAutocompleteModule,
     NbSpinnerModule,
     NbBadgeModule,
+    FontAwesomeModule,
   ],
   exports: [
     ImgPreviewComponent,
     AddressAutocompleteComponent,
     AddressComponent,
+    FlatItemComponent,
+    FlatListComponent,
   ],
 })
 export class SharedModule { }

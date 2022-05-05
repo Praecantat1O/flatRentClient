@@ -1,1 +1,30 @@
-<p>flat-item works!</p>
+<div class="flat">
+  <nb-card accent="info"
+           size="small"
+           class="card">
+    <nb-card-header class="card__header"></nb-card-header>
+    <nb-card-body class="card__body"
+                  routerLink="/flat/{{flat.id}}">
+      <nb-badge position="top right"
+                status="info"
+                [text]="price"
+                class="badge-price"></nb-badge>
+      <nb-badge position="top left"
+                text="{{flat.createdAt | date:'medium'}}"
+                class="badge-date"></nb-badge>
+
+      <img [src]="flat.photo.photoUrls[0]"
+           class="flat__img">
+
+    </nb-card-body>
+    <nb-card-footer class="card__footer">
+
+      <div class="flat__address">
+        <fa-icon class="card__icon"
+                 [icon]="faLocationDot"></fa-icon>
+        <p>{{flat.address.addressStr}}</p>
+      </div>
+      <div class="flat__bedrooms">{{flat.bedrooms}} комнатная</div>
+    </nb-card-footer>
+  </nb-card>
+</div>

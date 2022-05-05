@@ -1,0 +1,60 @@
+.card {
+  margin: 0;
+
+  &__header {
+    padding: 0;
+    border: 0;
+  }
+
+  &__body {
+    padding: 0;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  &__icon {
+    display: block;
+    margin-right: 10px;
+  }
+}
+
+.flat {
+  width: 400px;
+
+  &__img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &__address {
+    display: flex;
+  }
+
+  &__bedrooms {
+    align-self: flex-end;
+  }
+}
+
+.badge-price {
+  height: 40px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  border-radius: unset;
+}
+
+.badge-date {
+  border-radius: unset;
+  opacity: 70%;
+  font-weight: 300;
+}

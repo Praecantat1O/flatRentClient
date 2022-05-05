@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { IFlatUser } from 'src/app/interfaces/flat-user.interface';
 import { Flat } from 'src/app/models/flat.model';
 import { User } from 'src/app/models/user.model';
@@ -21,7 +21,7 @@ import { EntityStatus, StateEntity } from 'src/app/store/state.helpers';
   templateUrl: './flat.component.html',
   styleUrls: ['./flat.component.scss'],
 })
-export class FlatComponent implements OnInit {
+export class FlatComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
 
   public flat: Flat;
@@ -34,17 +34,24 @@ export class FlatComponent implements OnInit {
   public kitchenDevicesFields = kitchenDevicesFields;
   public devicesMap = flatDevicesMap;
 
-  ngOnInit(): void {
+  private sub$: Subscription;
+
+  public ngOnInit(): void {
     const flatId = this.route.snapshot.paramMap.get('id');
 
     this.store.dispatch(loadFlatPage({ id: flatId }));
+
     this.flatPage$ = this.store.select(getFlatPage);
 
-    this.flatPage$.subscribe((flatPage) => {
+    this.sub$ = this.flatPage$.subscribe((flatPage) => {
       if (flatPage.status === EntityStatus.Success) {
         this.flat = flatPage.value.flat;
         this.user = flatPage.value.user;
       }
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.sub$.unsubscribe();
   }
 }

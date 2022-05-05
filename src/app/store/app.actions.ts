@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IFlatUser } from '../interfaces/flat-user.interface';
+import { IFlat } from '../interfaces/flat.interface';
 import { Address } from '../models/address.model';
 
 enum ACTIONS {
@@ -17,6 +18,9 @@ enum ACTIONS {
   LOAD_FLAT_PAGE = '[Flat] Load Flat Page',
   LOAD_FLAT_PAGE_SUCCESS = '[Flat] Load Flat Page Success',
   LOAD_FLAT_PAGE_ERROR = '[Flat] Load Flat Page Error',
+  LOAD_ALL_FLATS = '[Flat] Load All Flats',
+  LOAD_ALL_FLATS_SUCCESS = '[Flat] Load All Flats Success',
+  LOAD_ALL_FLATS_ERROR = '[Flat] Load All Flats Error',
 }
 
 export const addressSearchAutocomplete = createAction(
@@ -69,5 +73,19 @@ export const loadFlatPageSuccess = createAction(
 
 export const loadFlatPageError = createAction(
   ACTIONS.LOAD_FLAT_PAGE_ERROR,
+  props<{ error: Error }>()
+);
+
+export const loadAllFlats = createAction(
+  ACTIONS.LOAD_ALL_FLATS
+);
+
+export const loadAllFlatsSuccess = createAction(
+  ACTIONS.LOAD_ALL_FLATS_SUCCESS,
+  props<{ flats: IFlat[] }>()
+);
+
+export const loadAllFlatsError = createAction(
+  ACTIONS.LOAD_ALL_FLATS_ERROR,
   props<{ error: Error }>()
 );

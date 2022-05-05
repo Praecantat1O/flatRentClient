@@ -1,1 +1,6 @@
-<p>flat-list works!</p>
+<div class="list">
+  <ng-container *ngFor="let flat of flats$ | async">
+    <app-flat-item class="list__item"
+                   [flat]="flat"></app-flat-item>
+  </ng-container>
+</div>

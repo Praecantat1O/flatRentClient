@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { map, Observable } from 'rxjs';
+import { IFlat } from 'src/app/interfaces/flat.interface';
+import { loadAllFlats } from 'src/app/store/app.actions';
+import { getAllFlats } from 'src/app/store/app.selectors';
+import { AppState } from 'src/app/store/app.state';
+
 
 @Component({
   selector: 'app-main',
@@ -6,7 +13,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  constructor() {}
+  constructor(private store: Store<AppState>) { }
 
-  ngOnInit(): void {}
+  public flats$: Observable<IFlat[]>;
+
+  public ngOnInit(): void {
+    this.store.dispatch(loadAllFlats());
+    this.flats$ = this.store.select(getAllFlats).pipe(map(flats => flats.value));
+  }
 }

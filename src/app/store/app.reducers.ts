@@ -59,6 +59,7 @@ export const appReducer = createReducer(
         value: null,
         status: EntityStatus.Pending,
       },
+      loaderStatus: state.loaderStatus + 1,
     };
   }),
   on(AppActions.createFlatSuccess, (state, { createdFlatId }) => {
@@ -69,6 +70,7 @@ export const appReducer = createReducer(
         value: createdFlatId,
         status: EntityStatus.Success,
       },
+      loaderStatus: state.loaderStatus - 1,
     };
   }),
   on(AppActions.createFlatError, (state, { error }) => {
@@ -79,6 +81,7 @@ export const appReducer = createReducer(
         status: EntityStatus.Error,
         error,
       },
+      loaderStatus: state.loaderStatus - 1,
     };
   }),
   on(AppActions.loadFlatPage, (state) => {
@@ -89,6 +92,7 @@ export const appReducer = createReducer(
         value: null,
         status: EntityStatus.Pending,
       },
+      loaderStatus: state.loaderStatus + 1,
     };
   }),
   on(AppActions.loadFlatPageSuccess, (state, { flatPage }) => {
@@ -99,6 +103,7 @@ export const appReducer = createReducer(
         value: flatPage,
         status: EntityStatus.Success,
       },
+      loaderStatus: state.loaderStatus - 1,
     };
   }),
   on(AppActions.loadFlatPageError, (state, { error }) => {
@@ -109,6 +114,40 @@ export const appReducer = createReducer(
         status: EntityStatus.Error,
         error,
       },
+      loaderStatus: state.loaderStatus - 1,
+    };
+  }),
+  on(AppActions.loadAllFlats, (state) => {
+    return {
+      ...state,
+      allFlats: {
+        ...state.allFlats,
+        value: null,
+        status: EntityStatus.Pending,
+      },
+      loaderStatus: state.loaderStatus + 1,
+    };
+  }),
+  on(AppActions.loadAllFlatsSuccess, (state, { flats }) => {
+    return {
+      ...state,
+      allFlats: {
+        ...state.allFlats,
+        value: flats,
+        status: EntityStatus.Success,
+      },
+      loaderStatus: state.loaderStatus - 1,
+    };
+  }),
+  on(AppActions.loadAllFlatsError, (state, { error }) => {
+    return {
+      ...state,
+      allFlats: {
+        value: null,
+        status: EntityStatus.Error,
+        error,
+      },
+      loaderStatus: state.loaderStatus - 1,
     };
   })
 );

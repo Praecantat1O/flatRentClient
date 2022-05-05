@@ -19,3 +19,7 @@ export const isCreatedFlatIdLoading = createSelector(appState, (state: AppState)
 export const isSuggestionsLoading = createSelector(appState, (state: AppState) => state.addressesSuggestions.status === EntityStatus.Pending);
 
 export const getFlatPage = createSelector(appState, (state: AppState) => state.flatPage);
+
+export const getAllFlats = createSelector(appState, (state: AppState) => state.allFlats);
+
+export const getLoaderStatus = createSelector(appState, (state: AppState) => state.loaderStatus !== 0);

@@ -1,7 +1,9 @@
-<nb-layout>
+<nb-layout [nbSpinner]="isLoading$ | async"
+           nbSpinnerStatus="info"
+           nbSpinnerSize="giant">
 
   <nb-layout-header fixed>
-  Header
+    Header
   </nb-layout-header>
 
   <nb-layout-column>
@@ -9,7 +11,7 @@
   </nb-layout-column>
 
   <nb-layout-footer fixed>
-  Footer
+    Footer
   </nb-layout-footer>
 
 </nb-layout>

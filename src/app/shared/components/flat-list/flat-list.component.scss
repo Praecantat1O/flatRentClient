@@ -1,0 +1,9 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    margin-right: 1.875rem;
+    margin-bottom: 1.875rem;
+  }
+}

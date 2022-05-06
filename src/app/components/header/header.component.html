@@ -1,1 +1,26 @@
-<p>header works!</p>
+<header class="header">
+  <div class="logo"
+       routerLink="/">
+    <img class="logo__img"
+         src="./../../../assets/images/logo.png">
+    <span class="logo__text">FlatRent</span>
+  </div>
+
+  <div class="buttons">
+        <!-- TODO: DISABLE IF NOT AUTHENTIFICATED (ON LOGIN PAGE) -->
+    <button nbButton
+            class="buttons__new"
+            status="primary"
+            routerLink="/new-flat">
+      <nb-icon icon="plus-circle-outline"></nb-icon>подать объявление
+    </button>
+    <!-- TODO: USER PROFILE BUTTON -->
+    <button nbButton
+            size="large"
+            shape="round"
+            status="info"
+            routerLink="/new-flat">
+      <nb-icon icon="person"></nb-icon>
+    </button>
+  </div>
+</header>

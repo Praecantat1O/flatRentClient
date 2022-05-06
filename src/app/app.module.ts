@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbLayoutModule, NbSpinnerModule, NbThemeModule } from '@nebular/theme';
+import { NbButtonModule, NbIconModule, NbLayoutModule, NbSpinnerModule, NbThemeModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { appReducer } from './store/app.reducers';
@@ -15,12 +15,16 @@ import { AppEffects } from './store/app.effects';
 
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
+import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './components/header/header.component';
+
 
 registerLocaleData(localeRu, 'ru');
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,8 +36,12 @@ registerLocaleData(localeRu, 'ru');
     NbThemeModule.forRoot({ name: 'cosmic' }),
     NbEvaIconsModule,
     NbLayoutModule,
+    NbButtonModule,
+    NbEvaIconsModule,
+    NbIconModule,
     NbSpinnerModule,
     HttpClientModule,
+    RouterModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ru' },

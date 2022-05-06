@@ -48,6 +48,10 @@ nb-radio .text {
   line-height: unset;
 }
 
+[nbButton]:focus, [nbButtonToggle]:focus {
+  box-shadow: none;
+}
+
 .hint {
   margin-top: 5px;
 }

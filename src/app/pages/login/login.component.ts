@@ -11,14 +11,19 @@ export class LoginComponent {
   constructor() {}
 
   public loginForm: FormGroup = new FormGroup({
-    login: new FormControl('', [
+    name: new FormControl('', [
       Validators.required,
-      Validators.maxLength(30),
+      Validators.maxLength(60),
+      Validators.minLength(2),
+    ]),
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(13),
       Validators.minLength(2),
     ]),
     password: new FormControl('', [
       Validators.required,
-      Validators.minLength(6),
+      Validators.minLength(4),
     ]),
   });
 

@@ -12,9 +12,21 @@
                    pack="eva"></nb-icon>
           <input nbInput
                  type="text"
-                 placeholder="Login"
+                 placeholder="Full Name"
                  fieldSize="large"
-                 formControlName="login">
+                 formControlName="name">
+        </nb-form-field>
+        <nb-form-field class="form__field">
+          <nb-icon nbPrefix
+                   icon="phone-outline"
+                   pack="eva">
+          </nb-icon>
+          <input nbInput
+                 type="text"
+                 maxlength="13"
+                 placeholder="Mobile Phone"
+                 fieldSize="large"
+                 formControlName="phone">
         </nb-form-field>
         <nb-form-field class="form__field">
           <nb-icon nbPrefix

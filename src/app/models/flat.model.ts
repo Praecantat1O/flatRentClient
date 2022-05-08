@@ -19,6 +19,7 @@ export class Flat implements IFlat {
   public devices: IFlatDevices;
   public userId: number;
   public createdAt: Date;
+  public isFavorite?: boolean;
 
   constructor(flat: IFlat) {
     this.id = flat.id;

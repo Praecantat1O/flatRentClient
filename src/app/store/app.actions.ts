@@ -1,12 +1,20 @@
 import { createAction, props } from '@ngrx/store';
 import { IFlatUser } from '../interfaces/flat-user.interface';
 import { IFlat } from '../interfaces/flat.interface';
+import { IUser, IUserToDB } from '../interfaces/user.interface';
 import { Address } from '../models/address.model';
 
 enum ACTIONS {
-  LOGIN = '[Auth] Login',
-  LOGIN_SUCCESS = '[Auth] Login Success',
-  LOGIN_ERROR = '[Auth] Login Error',
+  LOAD_USER = '[Auth] Load User',
+  LOAD_USER_SUCCESS = '[Auth] Load User Success',
+  LOAD_USER_ERROR = '[Auth] Load User Error',
+  LOAD_CURRENT_USER = '[Auth] Load Current User',
+  LOAD_CURRENT_USER_SUCCESS = '[Auth] Load Current User Success',
+  LOAD_CURRENT_USER_ERROR = '[Auth] Load Current User Error',
+  CREATE_USER = '[Auth] Create User',
+  CREATE_USER_SUCCESS = '[Auth] Create User Success',
+  CREATE_USER_ERROR = '[Auth] Create User Error',
+  CLEAR_USER = '[Auth] Clear User',
   ADDRESS_SEARCH_AUTOCOMPLETE = '[Address] Address Search Autocomplete',
   ADDRESS_SEARCH_AUTOCOMPLETE_SUCCESS = '[Address] Address Search Autocomplete Success',
   ADDRESS_SEARCH_AUTOCOMPLETE_ERROR = '[Address] Address Search Autocomplete Error',
@@ -88,4 +96,53 @@ export const loadAllFlatsSuccess = createAction(
 export const loadAllFlatsError = createAction(
   ACTIONS.LOAD_ALL_FLATS_ERROR,
   props<{ error: Error }>()
+);
+
+export const createUser = createAction(
+  ACTIONS.CREATE_USER,
+  props<{ userToDB: IUserToDB }>()
+);
+
+export const createUserSuccess = createAction(
+  ACTIONS.CREATE_USER_SUCCESS,
+  props<{ uid: string }>()
+);
+
+export const createUserError = createAction(
+  ACTIONS.CREATE_USER_ERROR,
+  props<{ error: Error }>()
+);
+
+export const loadUser = createAction(
+  ACTIONS.LOAD_USER,
+  props<{ uid: string }>()
+);
+
+export const loadUserSuccess = createAction(
+  ACTIONS.LOAD_USER_SUCCESS,
+  props<{ user: IUser }>()
+);
+
+export const loadUserError = createAction(
+  ACTIONS.LOAD_USER_ERROR,
+  props<{ error: Error }>()
+);
+
+export const loadCurrentUser = createAction(
+  ACTIONS.LOAD_CURRENT_USER,
+  props<{ uid: string }>()
+);
+
+export const loadCurrentUserSuccess = createAction(
+  ACTIONS.LOAD_CURRENT_USER_SUCCESS,
+  props<{ user: IUser }>()
+);
+
+export const loadCurrentUserError = createAction(
+  ACTIONS.LOAD_CURRENT_USER_ERROR,
+  props<{ error: Error }>()
+);
+
+export const clearUser = createAction(
+  ACTIONS.CLEAR_USER
 );

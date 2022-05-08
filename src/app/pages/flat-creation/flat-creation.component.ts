@@ -11,12 +11,11 @@ import { faBath, faFireBurner } from '@fortawesome/free-solid-svg-icons';
 import { Address } from 'src/app/models/address.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { getUserId, isCreatedFlatIdLoading } from 'src/app/store/app.selectors';
-import { Observable, take } from 'rxjs';
+import { getCurrentUser, isCreatedFlatIdLoading } from 'src/app/store/app.selectors';
+import { map, Observable, take } from 'rxjs';
 import { createFlat } from 'src/app/store/app.actions';
 import { IPhotoPreview } from 'src/app/interfaces/photo-preview.interface';
 import { addressValidator } from 'src/app/shared/validators/address.validator';
-import { StateEntity } from 'src/app/store/state.helpers';
 
 @Component({
   selector: 'app-flat-creation',
@@ -40,7 +39,7 @@ export class FlatCreationComponent implements OnInit {
   public photoPreview: IPhotoPreview[] = [];
   public photoFiles: File[] = [];
 
-  public userId$: Observable<StateEntity<number>> = this.store.select(getUserId);
+  public userId$: Observable<number> = this.store.select(getCurrentUser).pipe(map(user => user.value.id));
   public isLoading$: Observable<boolean> = this.store.select(isCreatedFlatIdLoading);
 
   public ngOnInit(): void {
@@ -174,7 +173,7 @@ export class FlatCreationComponent implements OnInit {
     });
   }
 
-  private getFormData(userId: StateEntity<number>): FormData {
+  private getFormData(userId: number): FormData {
     const formData = new FormData();
 
     const flat = JSON.stringify({
@@ -182,7 +181,7 @@ export class FlatCreationComponent implements OnInit {
       bedrooms: this.newFlatForm.get('bedrooms').value,
       description: this.newFlatForm.get('description').value,
       address: this.newFlatForm.get('address').value,
-      userId: userId.value,
+      userId,
     });
     const info = JSON.stringify(this.newFlatForm.get('info').value);
     const devices = JSON.stringify(this.newFlatForm.get('devices').value);

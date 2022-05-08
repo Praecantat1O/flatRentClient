@@ -7,7 +7,7 @@
   </div>
 
   <div class="buttons">
-        <!-- TODO: DISABLE IF NOT AUTHENTIFICATED (ON LOGIN PAGE) -->
+    <!-- TODO: DISABLE IF NOT AUTHENTIFICATED (ON LOGIN PAGE) -->
     <button nbButton
             class="buttons__new"
             status="primary"
@@ -19,7 +19,7 @@
             size="large"
             shape="round"
             status="info"
-            routerLink="/new-flat">
+            routerLink="/user/{{currentUserUid$ | async }}">
       <nb-icon icon="person"></nb-icon>
     </button>
   </div>

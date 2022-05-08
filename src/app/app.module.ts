@@ -17,6 +17,8 @@ import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 
 registerLocaleData(localeRu, 'ru');
@@ -42,6 +44,8 @@ registerLocaleData(localeRu, 'ru');
     NbSpinnerModule,
     HttpClientModule,
     RouterModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ru' },

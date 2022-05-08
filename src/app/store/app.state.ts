@@ -1,22 +1,30 @@
 import { IFlatUser } from '../interfaces/flat-user.interface';
 import { IFlat } from '../interfaces/flat.interface';
+import { IUser } from '../interfaces/user.interface';
 import { Address } from '../models/address.model';
 import { EntityStatus, StateEntity } from './state.helpers';
 
 export interface AppState {
-  userId: StateEntity<number>;
+  currentUser: StateEntity<IUser>;
+  selectedUser: StateEntity<IUser>;
   addressesSuggestions: StateEntity<Address[]>;
   addressToSearch: string;
   createdFlatId: StateEntity<number>;
   flatPage: StateEntity<IFlatUser>;
   allFlats: StateEntity<IFlat[]>;
   loaderStatus: number;
+  userUid: StateEntity<string>;
 }
 
 export const initialState: AppState = {
-  userId: {
+  currentUser: {
     status: EntityStatus.Init,
-    value: 1,
+    value: null,
+    error: null,
+  },
+  selectedUser: {
+    status: EntityStatus.Init,
+    value: null,
     error: null,
   },
   addressesSuggestions: {
@@ -35,6 +43,11 @@ export const initialState: AppState = {
     error: null,
   },
   allFlats: {
+    status: EntityStatus.Init,
+    value: null,
+    error: null,
+  },
+  userUid: {
     status: EntityStatus.Init,
     value: null,
     error: null,

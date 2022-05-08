@@ -19,7 +19,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/flat/flat.module').then((m) => m.FlatModule),
   },
   {
-    path: 'account',
+    path: 'user',
     loadChildren: () => import('./pages/user-account/user-account.module').then((m) => m.UserAccountModule),
   },
   {

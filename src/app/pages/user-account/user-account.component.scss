@@ -1,0 +1,14 @@
+.user {
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    max-width: 50%;
+    margin-bottom: 20px;
+  }
+
+  &__item-text {
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 300;
+  }
+}

@@ -4,7 +4,7 @@ import { UserAccountComponent } from './user-account.component';
 
 const routes: Routes = [
   {
-    path: ':id',
+    path: ':uid',
     component: UserAccountComponent,
   },
 ];

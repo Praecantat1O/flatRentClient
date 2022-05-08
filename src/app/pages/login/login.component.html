@@ -1,10 +1,55 @@
 <div class="container">
   <nb-card size="medium"
-           status="primary">
-    <nb-card-header>Login</nb-card-header>
+           status="primary"
+           *ngIf="isLogin">
+    <nb-card-header>Вход в аккаунт</nb-card-header>
     <nb-card-body>
       <form class="form"
             [formGroup]="loginForm"
+            (ngSubmit)="onSubmit()">
+
+        <nb-form-field class="form__field">
+          <nb-icon nbPrefix
+                   icon="email-outline"
+                   pack="eva"></nb-icon>
+          <input nbInput
+                 type="email"
+                 placeholder="Email"
+                 fieldSize="large"
+                 formControlName="email">
+        </nb-form-field>
+        <nb-form-field class="form__field">
+          <nb-icon nbPrefix
+                   icon="lock-outline"
+                   pack="eva">
+          </nb-icon>
+          <input nbInput
+                 type="password"
+                 placeholder="Password"
+                 fieldSize="large"
+                 formControlName="password">
+        </nb-form-field>
+
+        <button nbButton
+                class="form__button"
+                type="submit"
+                status="primary">Войти</button>
+      </form>
+      <div class="form__message">
+        <p class="subtitle">{{ loginMessage }}</p>
+        <p class="form__action"
+           (click)="changeForm()">Зарегистрироваться</p>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card size="medium"
+           status="primary"
+           *ngIf="!isLogin">
+    <nb-card-header>Регистрация</nb-card-header>
+    <nb-card-body>
+      <form class="form"
+            [formGroup]="registrationForm"
             (ngSubmit)="onSubmit()">
         <nb-form-field class="form__field">
           <nb-icon nbPrefix
@@ -15,6 +60,16 @@
                  placeholder="Full Name"
                  fieldSize="large"
                  formControlName="name">
+        </nb-form-field>
+        <nb-form-field class="form__field">
+          <nb-icon nbPrefix
+                   icon="email-outline"
+                   pack="eva"></nb-icon>
+          <input nbInput
+                 type="email"
+                 placeholder="Email"
+                 fieldSize="large"
+                 formControlName="email">
         </nb-form-field>
         <nb-form-field class="form__field">
           <nb-icon nbPrefix
@@ -42,8 +97,13 @@
         <button nbButton
                 class="form__button"
                 type="submit"
-                status="primary">Sign In</button>
+                status="primary">Зарегистрироваться</button>
       </form>
+      <div class="form__message">
+        <p class="subtitle">{{ regMessage }}</p>
+        <p class="form__action"
+           (click)="changeForm()">Войти</p>
+      </div>
     </nb-card-body>
   </nb-card>
 </div>

@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { IFlatUser } from '../interfaces/flat-user.interface';
 import { IFlat } from '../interfaces/flat.interface';
+import { Flat } from '../models/flat.model';
+import { User } from '../models/user.model';
 
 const apiUrl = environment.apiUrls.flat;
 
@@ -18,10 +20,43 @@ export class FlatService {
   }
 
   public getAll(): Observable<IFlat[]> {
-    return this.http.get<IFlat[]>(apiUrl);
+    return this.http.get<IFlat[]>(apiUrl)
+      .pipe(
+        map(flats => flats.map(flat => new Flat(flat)))
+      );
   }
 
   public getFlatById(id: string): Observable<IFlatUser> {
-    return this.http.get<IFlatUser>(apiUrl + id);
+    return this.http.get<IFlatUser>(apiUrl + id)
+      .pipe(
+        map((value: IFlatUser) => {
+          const flat = new Flat(value.flat);
+          const user = new User(value.user);
+
+          return { flat, user };
+        })
+      );
+  }
+
+  public getFlatByUserUid(uid: string): Observable<IFlat[]> {
+    return this.http.get<IFlat[]>(apiUrl, {
+      params: {
+        userUid: uid,
+      },
+    })
+      .pipe(
+        map(flats => flats.map(flat => new Flat(flat)))
+      );
+  }
+
+  public getFlatByIdList(ids: number[]): Observable<IFlat[]> {
+    return this.http.get<IFlat[]>(apiUrl, {
+      params: {
+        idList: ids.map(item => item.toString()).join(','),
+      },
+    })
+      .pipe(
+        map(flats => flats.map(flat => new Flat(flat)))
+      );
   }
 }

@@ -1,3 +1,5 @@
+@use '../../../themes' as *;
+
 .login {
   width: 500px;
   height: 500px;
@@ -8,7 +10,24 @@
   &__field {
     margin-bottom: 10px;
   }
+
   &__button {
     width: 100%;
+  }
+
+  &__message {
+    margin-top: 10px;
+  }
+
+  &__action {
+    cursor: pointer;
+    transition: color .2s linear;
+    font-weight: bold;
+    
+    color: nb-theme(color-primary-default);
+
+    &:hover {
+      color: nb-theme(color-primary-hover);
+    }
   }
 }

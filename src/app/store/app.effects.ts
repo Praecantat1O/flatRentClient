@@ -4,9 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AppActions from './app.actions';
 import { AddressService } from '../services/address.service';
 import { FlatService } from '../services/flat.service';
-import { IFlatUser } from '../interfaces/flat-user.interface';
-import { Flat } from '../models/flat.model';
-import { User } from '../models/user.model';
+import { UserService } from '../services/user.service';
 
 @Injectable()
 export class AppEffects {
@@ -47,12 +45,6 @@ export class AppEffects {
       switchMap((item) => {
         return this.flatService.getFlatById(item.id).pipe(
           delay(500),
-          map((value: IFlatUser) => {
-            const flat = new Flat(value.flat);
-            const user = new User(value.user);
-
-            return { flat, user };
-          }),
           map((flatPage) => AppActions.loadFlatPageSuccess({ flatPage })),
           catchError((error) => of(AppActions.loadFlatPageError({ error })))
         );
@@ -66,7 +58,6 @@ export class AppEffects {
       switchMap(() => {
         return this.flatService.getAll().pipe(
           delay(500),
-          map(flats => flats.map(flat => new Flat(flat))),
           map((flats) => AppActions.loadAllFlatsSuccess({ flats })),
           catchError((error) => of(AppActions.loadAllFlatsError({ error })))
         );
@@ -74,5 +65,52 @@ export class AppEffects {
     )
   );
 
-  constructor(private actions$: Actions, private addressService: AddressService, private flatService: FlatService) { }
+  public createUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.createUser),
+      switchMap((item) => {
+        return this.userService.createUser(item.userToDB).pipe(
+          delay(500),
+          map((user) => AppActions.createUserSuccess({ uid: user.uid })),
+          catchError((error) => of(AppActions.createUserError({ error })))
+        );
+      })
+    )
+  );
+
+  public getUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.loadUser),
+      switchMap((item) => {
+        return this.userService.getUserByUid(item.uid).pipe(
+          delay(500),
+          map((user) => {
+            user = { ...user, favorites: null };
+            return AppActions.loadUserSuccess({ user })
+          }),
+          catchError((error) => of(AppActions.loadUserError({ error })))
+        );
+      })
+    )
+  );
+
+  public getCurrentUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.loadCurrentUser, AppActions.createUserSuccess),
+      switchMap((item) => {
+        return this.userService.getUserByUid(item.uid).pipe(
+          delay(500),
+          map((user) => AppActions.loadCurrentUserSuccess({ user })),
+          catchError((error) => of(AppActions.loadCurrentUserError({ error })))
+        );
+      })
+    )
+  );
+
+  constructor(
+    private actions$: Actions,
+    private addressService: AddressService,
+    private flatService: FlatService,
+    private userService: UserService
+  ) { }
 }

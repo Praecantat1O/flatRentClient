@@ -1,1 +1,33 @@
-<p>user-account works!</p>
+<nb-card *ngIf="user"
+         status="primary"
+         class="user">
+  <nb-card-header>Информация о пользователе <span class="user__item-text">{{user.name}}</span> </nb-card-header>
+  <nb-card-body>
+    <div class="user__info">
+      <p class="user__info-item subtitle">
+        Телефон: <span class="user__item-text">{{ user.phone }}</span>
+      </p>
+      <p class="user__info-item subtitle">
+        Email: <span class="user__item-text">{{ user.email }}</span>
+      </p>
+    </div>
+    <nb-card status="info">
+      <nb-card-header>Объявления пользователя</nb-card-header>
+      <nb-card-body *ngIf="flats$ | async">
+        <app-flat-list class="list"
+                       [flats$]="flats$">
+        </app-flat-list>
+      </nb-card-body>
+    </nb-card>
+
+    <!-- TODO: HIDE WHEN NOT CURRENT -->
+    <nb-card status="danger">
+      <nb-card-header>Избранное</nb-card-header>
+      <nb-card-body *ngIf="favorites$ | async">
+        <app-flat-list class="list"
+                       [flats$]="favorites$">
+        </app-flat-list>
+      </nb-card-body>
+    </nb-card>
+  </nb-card-body>
+</nb-card>

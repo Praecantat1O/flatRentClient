@@ -14,4 +14,5 @@ export interface IFlat {
   devices: IFlatDevices;
   userId: number;
   createdAt: Date;
+  isFavorite?: boolean;
 }

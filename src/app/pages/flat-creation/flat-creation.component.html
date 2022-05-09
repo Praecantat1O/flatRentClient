@@ -231,7 +231,8 @@
       <button nbButton
               class="form__button"
               type="submit"
-              status="primary">Создать объявление</button>
+              status="primary"
+              [disabled]="newFlatForm.invalid">Создать объявление</button>
     </form>
   </nb-card-body>
 </nb-card>

@@ -131,7 +131,7 @@ export const appReducer = createReducer(
       ...state,
       allFlats: {
         ...state.allFlats,
-        value: flats,
+        value: [...flats].reverse(),
         status: EntityStatus.Success,
       },
       loaderStatus: state.loaderStatus - 1,

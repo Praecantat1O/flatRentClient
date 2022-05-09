@@ -32,7 +32,7 @@ export class AppEffects {
       switchMap((item) => {
         return this.flatService.createFlat(item.formData).pipe(
           delay(500),
-          map((response) => AppActions.createFlatSuccess(response.flatId)),
+          map((response) => AppActions.createFlatSuccess({ createdFlatId: response.id })),
           catchError((error) => of(AppActions.createFlatError({ error })))
         );
       })

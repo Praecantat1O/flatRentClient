@@ -11,11 +11,13 @@ import { faBath, faFireBurner } from '@fortawesome/free-solid-svg-icons';
 import { Address } from 'src/app/models/address.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { getCurrentUser } from 'src/app/store/app.selectors';
-import { map, Observable, take } from 'rxjs';
+import { getCreatedFlatId, getCurrentUser } from 'src/app/store/app.selectors';
+import { filter, map, Observable, Subscription, take } from 'rxjs';
 import { createFlat } from 'src/app/store/app.actions';
 import { IPhotoPreview } from 'src/app/interfaces/photo-preview.interface';
 import { addressValidator } from 'src/app/shared/validators/address.validator';
+import { EntityStatus } from 'src/app/store/state.helpers';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-flat-creation',
@@ -23,7 +25,7 @@ import { addressValidator } from 'src/app/shared/validators/address.validator';
   styleUrls: ['./flat-creation.component.scss'],
 })
 export class FlatCreationComponent implements OnInit {
-  constructor(private cdr: ChangeDetectorRef, private store: Store<AppState>) { }
+  constructor(private cdr: ChangeDetectorRef, private store: Store<AppState>, private router: Router) { }
 
   public newFlatForm: FormGroup;
 
@@ -40,6 +42,8 @@ export class FlatCreationComponent implements OnInit {
   public photoFiles: File[] = [];
 
   public userId$: Observable<number> = this.store.select(getCurrentUser).pipe(map(user => user.value.id));
+
+  public sub: Subscription;
 
   public ngOnInit(): void {
     this.newFlatForm = new FormGroup({
@@ -92,6 +96,14 @@ export class FlatCreationComponent implements OnInit {
         Validators.max(10000),
       ]),
     });
+
+    this.sub = this.store.select(getCreatedFlatId)
+      .pipe(
+        filter(id => id.status === EntityStatus.Success),
+        take(1)
+      ).subscribe(id => {
+        this.router.navigate([`/flat/${id.value}`]);
+      })
   }
 
   public get photosErrors() {
@@ -103,6 +115,7 @@ export class FlatCreationComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    console.log(this.newFlatForm.value);
     this.userId$.pipe(take(1)).subscribe(userId => {
       const formData = this.getFormData(userId);
 

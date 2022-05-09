@@ -34,7 +34,24 @@
 }
 
 .buttons {
-  &__new {
-    margin-right: 100px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &__nav {
+    display: flex;
+    justify-content: space-evenly;
+    width: 30%;
+  }
+
+  &__nav-link {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
   }
 }

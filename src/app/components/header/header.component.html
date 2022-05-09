@@ -7,20 +7,44 @@
   </div>
 
   <div class="buttons">
-    <!-- TODO: DISABLE IF NOT AUTHENTIFICATED (ON LOGIN PAGE) -->
-    <button nbButton
-            class="buttons__new"
-            status="primary"
-            routerLink="/new-flat">
-      <nb-icon icon="plus-circle-outline"></nb-icon>подать объявление
-    </button>
-    <!-- TODO: USER PROFILE BUTTON -->
-    <button nbButton
-            size="large"
-            shape="round"
-            status="info"
-            routerLink="/user/{{currentUserUid$ | async }}">
-      <nb-icon icon="person"></nb-icon>
-    </button>
+    <div class="buttons__nav">
+      <button nbButton
+              size="large">
+        <nb-icon icon="home-outline"></nb-icon>
+        Главная
+      </button>
+
+      <button nbButton
+              size="large">
+        <nb-icon icon="search-outline"></nb-icon>
+        Поиск
+      </button>
+    </div>
+    <div class="buttons__actions">
+      <button nbButton
+              status="primary"
+              routerLink="/new-flat">
+        <nb-icon icon="plus-circle-outline"></nb-icon>подать объявление
+      </button>
+
+      <button nbButton
+              size="large"
+              shape="round"
+              status="info"
+              [nbPopover]="logout"
+              nbPopoverTrigger="hover"
+              nbPopoverPlacement="left"
+              routerLink="/user/{{currentUserUid$ | async }}">
+        <nb-icon icon="person"></nb-icon>
+      </button>
+    </div>
   </div>
 </header>
+
+<ng-template #logout>
+  <button nbButton
+          status="danger"
+          (click)="onSignOut()">
+    <nb-icon icon="power-outline"></nb-icon>Выйти
+  </button>
+</ng-template>

@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbButtonModule, NbIconModule, NbLayoutModule, NbSpinnerModule, NbThemeModule } from '@nebular/theme';
+import { NbButtonModule, NbIconModule, NbLayoutModule, NbPopoverModule, NbSpinnerModule, NbThemeModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { appReducer } from './store/app.reducers';
@@ -42,6 +42,7 @@ registerLocaleData(localeRu, 'ru');
     NbEvaIconsModule,
     NbIconModule,
     NbSpinnerModule,
+    NbPopoverModule,
     HttpClientModule,
     RouterModule,
     AngularFireModule.initializeApp(environment.firebase),

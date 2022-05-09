@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { filter, map, Observable } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 import { getCurrentUser } from 'src/app/store/app.selectors';
 import { AppState } from 'src/app/store/app.state';
 import { EntityStatus } from 'src/app/store/state.helpers';
@@ -12,11 +14,16 @@ import { EntityStatus } from 'src/app/store/state.helpers';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>, private userService: UserService, private router: Router) { }
 
   public currentUserUid$: Observable<string> = this.store.select(getCurrentUser)
     .pipe(
       filter(user => user.status === EntityStatus.Success),
       map(user => user.value.uid)
     );
+
+  public onSignOut(): void {
+    this.userService.signOut();
+    this.router.navigate(['/login']);
+  }
 }

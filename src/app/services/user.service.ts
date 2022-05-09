@@ -7,7 +7,7 @@ import { Observable, withLatestFrom } from 'rxjs';
 import { IRegForm, IUser, IUserToDB } from '../interfaces/user.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { getUserUid } from '../store/app.selectors';
+import { getUserUid, isLogged } from '../store/app.selectors';
 import { EntityStatus } from '../store/state.helpers';
 
 const apiUrl = environment.apiUrls.user;
@@ -27,10 +27,13 @@ export class UserService {
           this.store.dispatch(loadCurrentUser({ uid: user.uid }));
         }
       }
+
+      this.store.select(isLogged).subscribe(value => this.isLogged = value);
     });
   }
 
   public userUid$ = this.store.select(getUserUid);
+  public isLogged: boolean;
 
   public async signUp(form: IRegForm) {
     try {

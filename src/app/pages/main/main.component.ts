@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { IFlat } from 'src/app/interfaces/flat.interface';
 import { loadAllFlats } from 'src/app/store/app.actions';
-import { getAllFlats } from 'src/app/store/app.selectors';
+import { getAllFlats, getLoaderStatus } from 'src/app/store/app.selectors';
 import { AppState } from 'src/app/store/app.state';
 
 
@@ -16,9 +16,11 @@ export class MainComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   public flats$: Observable<IFlat[]>;
+  public isLoading$: Observable<boolean>;
 
   public ngOnInit(): void {
     this.store.dispatch(loadAllFlats());
     this.flats$ = this.store.select(getAllFlats).pipe(map(flats => flats.value));
+    this.isLoading$ = this.store.select(getLoaderStatus);
   }
 }

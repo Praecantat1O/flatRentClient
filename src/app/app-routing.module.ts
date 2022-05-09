@@ -6,7 +6,6 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./pages/main/main.module').then((m) => m.MainModule),
-    canActivate: [AuthGuard],
   },
   {
     path: 'login',
@@ -31,6 +30,10 @@ const routes: Routes = [
     path: 'advanced-search',
     loadChildren: () => import('./pages/advanced-search/advanced-search.module').then((m) => m.AdvancedSearchModule),
     canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/main/main.module').then((m) => m.MainModule),
   },
 ];
 

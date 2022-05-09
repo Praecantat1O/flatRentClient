@@ -99,7 +99,6 @@ export class AppEffects {
       ofType(AppActions.loadCurrentUser, AppActions.createUserSuccess),
       switchMap((item) => {
         return this.userService.getUserByUid(item.uid).pipe(
-          delay(500),
           map((user) => AppActions.loadCurrentUserSuccess({ user })),
           catchError((error) => of(AppActions.loadCurrentUserError({ error })))
         );

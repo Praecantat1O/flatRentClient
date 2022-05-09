@@ -33,7 +33,8 @@
         <button nbButton
                 class="form__button"
                 type="submit"
-                status="primary">Войти</button>
+                status="primary"
+                [disabled]="loginForm.invalid">Войти</button>
       </form>
       <div class="form__message">
         <p class="subtitle">{{ loginMessage }}</p>
@@ -97,7 +98,8 @@
         <button nbButton
                 class="form__button"
                 type="submit"
-                status="primary">Зарегистрироваться</button>
+                status="primary"
+                [disabled]="loginForm.invalid">Зарегистрироваться</button>
       </form>
       <div class="form__message">
         <p class="subtitle">{{ regMessage }}</p>

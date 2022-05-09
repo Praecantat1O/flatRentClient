@@ -1,6 +1,17 @@
-<div class="list">
+<div class="list"
+     *ngIf="(flats$ | async)?.length > 0; else empty">
+
   <ng-container *ngFor="let flat of flats$ | async">
     <app-flat-item class="list__item"
                    [flat]="flat"></app-flat-item>
   </ng-container>
 </div>
+
+<ng-template #empty>
+  <div class="empty">
+    <h2 class="h2">Нет объявлений</h2>
+    <button class="empty__button"
+            nbButton
+            routerLink="/new-flat">подать объявление</button>
+  </div>
+</ng-template>

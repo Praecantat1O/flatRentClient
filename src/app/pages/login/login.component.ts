@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { IRegForm } from 'src/app/interfaces/user.interface';
 import { UserService } from 'src/app/services/user.service';
+import { AppState } from 'src/app/store/app.state';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router, private store: Store<AppState>) { }
 
   public registrationForm: FormGroup = new FormGroup({
     name: new FormControl('', [
@@ -49,6 +53,7 @@ export class LoginComponent {
   });
 
   public isLogin: boolean = true;
+  public sub: Subscription;
 
   public loginMessage = 'У Вас нет аккаунта?';
   public regMessage = 'У Вас уже есть аккаунт?';
@@ -71,7 +76,9 @@ export class LoginComponent {
         phone: this.registrationForm.value.phone,
       };
 
-      this.userService.signUp(loginForm).then;
+      this.userService.signUp(loginForm);
     }
+
+    this.router.navigate(['/']);
   }
 }

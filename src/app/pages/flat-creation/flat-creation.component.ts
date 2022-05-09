@@ -11,7 +11,7 @@ import { faBath, faFireBurner } from '@fortawesome/free-solid-svg-icons';
 import { Address } from 'src/app/models/address.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { getCurrentUser, isCreatedFlatIdLoading } from 'src/app/store/app.selectors';
+import { getCurrentUser } from 'src/app/store/app.selectors';
 import { map, Observable, take } from 'rxjs';
 import { createFlat } from 'src/app/store/app.actions';
 import { IPhotoPreview } from 'src/app/interfaces/photo-preview.interface';
@@ -40,7 +40,6 @@ export class FlatCreationComponent implements OnInit {
   public photoFiles: File[] = [];
 
   public userId$: Observable<number> = this.store.select(getCurrentUser).pipe(map(user => user.value.id));
-  public isLoading$: Observable<boolean> = this.store.select(isCreatedFlatIdLoading);
 
   public ngOnInit(): void {
     this.newFlatForm = new FormGroup({

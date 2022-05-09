@@ -14,14 +14,13 @@
 
   &__sidebar {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     height: 500px;
   }
 
   &__sidebar-top {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
   }
 
   &__info {
@@ -37,6 +36,10 @@
   &__value {
     margin-right: 5px;
   }
+}
+
+.user {
+  margin-bottom: 20px;
 }
 
 .gallery {

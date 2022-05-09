@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { IFlatUser } from 'src/app/interfaces/flat-user.interface';
@@ -22,7 +23,7 @@ import { EntityStatus, StateEntity } from 'src/app/store/state.helpers';
   styleUrls: ['./flat.component.scss'],
 })
 export class FlatComponent implements OnInit, OnDestroy {
-  constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
+  constructor(private store: Store<AppState>, private route: ActivatedRoute) { }
 
   public flat: Flat;
   public user: User;

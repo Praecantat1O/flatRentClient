@@ -19,7 +19,7 @@ const routes: Routes = [
   {
     path: 'flat',
     loadChildren: () => import('./pages/flat/flat.module').then((m) => m.FlatModule),
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'user',

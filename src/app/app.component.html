@@ -1,12 +1,12 @@
-<nb-layout [nbSpinner]="isLoading$ | async"
-           nbSpinnerStatus="info"
-           nbSpinnerSize="giant">
+<nb-layout>
 
   <nb-layout-header fixed>
     <app-header></app-header>
   </nb-layout-header>
 
-  <nb-layout-column>
+  <nb-layout-column [nbSpinner]="isLoading$ | async"
+                    nbSpinnerStatus="info"
+                    nbSpinnerSize="giant">
     <router-outlet></router-outlet>
   </nb-layout-column>
 

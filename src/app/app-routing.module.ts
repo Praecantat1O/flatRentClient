@@ -24,7 +24,7 @@ const routes: Routes = [
   {
     path: 'user',
     loadChildren: () => import('./pages/user-account/user-account.module').then((m) => m.UserAccountModule),
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'advanced-search',

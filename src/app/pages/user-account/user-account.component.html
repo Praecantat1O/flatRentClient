@@ -11,7 +11,9 @@
         Email: <span class="user__item-text">{{ user.email }}</span>
       </p>
     </div>
-    <nb-card status="info">
+    <nb-card status="info"
+             size="medium"
+             class="list-card">
       <nb-card-header>Объявления пользователя</nb-card-header>
       <nb-card-body *ngIf="flats$ | async">
         <app-flat-list class="list"
@@ -20,8 +22,9 @@
       </nb-card-body>
     </nb-card>
 
-    <!-- TODO: HIDE WHEN NOT CURRENT -->
-    <nb-card status="danger">
+    <nb-card status="danger"
+             size="medium"
+             class="list-card">
       <nb-card-header>Избранное</nb-card-header>
       <nb-card-body *ngIf="favorites$ | async">
         <app-flat-list class="list"

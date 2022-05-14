@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { filter, map, Observable } from 'rxjs';
+import { IUser } from 'src/app/interfaces/user.interface';
 import { UserService } from 'src/app/services/user.service';
 import { clearUser } from 'src/app/store/app.actions';
 import { getCurrentUser, isLogged } from 'src/app/store/app.selectors';
@@ -17,11 +18,11 @@ import { EntityStatus } from 'src/app/store/state.helpers';
 export class HeaderComponent {
   constructor(private store: Store<AppState>, private userService: UserService, private router: Router) { }
 
-  public currentUserUid$: Observable<string> = this.store.select(getCurrentUser)
+  public currentUser$: Observable<IUser> = this.store.select(getCurrentUser)
     .pipe(
       filter(user => user.status === EntityStatus.Success),
-      map(user => user.value.uid)
-  );
+      map(user => user.value)
+    );
 
   public isLogged$ = this.store.select(isLogged);
 

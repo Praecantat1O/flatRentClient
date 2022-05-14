@@ -35,6 +35,7 @@ export class Flat implements IFlat {
     this.devices = new FlatDevices(flat.devices);
     this.userId = flat.userId;
     this.createdAt = flat.createdAt;
+    this.isFavorite = false;
     this.booking = flat.booking.map(item => new Booking(item));
   }
 }

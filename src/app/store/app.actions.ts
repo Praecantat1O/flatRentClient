@@ -35,6 +35,12 @@ enum ACTIONS {
   DELETE_BOOKING = '[Booking] Delete Booking',
   DELETE_BOOKING_SUCCESS = '[Booking] Delete Booking Success',
   DELETE_BOOKING_ERROR = '[Booking] Delete Booking Error',
+  ADD_FAVORITE = '[User] Add Favorite',
+  ADD_FAVORITE_SUCCESS = '[User] Add Favorite Success',
+  ADD_FAVORITE_ERROR = '[User] Add Favorite Error',
+  DELETE_FAVORITE = '[User] Delete Favorite',
+  DELETE_FAVORITE_SUCCESS = '[User] Delete Favorite Success',
+  DELETE_FAVORITE_ERROR = '[User] Delete Favorite Error',
 }
 
 export const addressSearchAutocomplete = createAction(
@@ -121,7 +127,7 @@ export const createUserError = createAction(
 
 export const loadUser = createAction(
   ACTIONS.LOAD_USER,
-  props<{ uid: string }>()
+  props<{ uid: string, isCurrent?: boolean }>()
 );
 
 export const loadUserSuccess = createAction(
@@ -180,6 +186,35 @@ export const deleteBookingSuccess = createAction(
 
 export const deleteBookingError = createAction(
   ACTIONS.DELETE_BOOKING_ERROR,
+  props<{ error: Error }>()
+);
+
+export const addFavorite = createAction(
+  ACTIONS.ADD_FAVORITE,
+  props<{ uid: string, flatId: number }>()
+);
+
+export const addFavoriteSuccess = createAction(
+  ACTIONS.ADD_FAVORITE_SUCCESS,
+  props<{ flatId: number }>()
+);
+
+export const addFavoriteError = createAction(
+  ACTIONS.ADD_FAVORITE_ERROR,
+  props<{ error: Error }>()
+);
+
+export const deleteFavorite = createAction(
+  ACTIONS.DELETE_FAVORITE,
+  props<{ uid: string, flatId: number }>()
+);
+
+export const deleteFavoriteSuccess = createAction(
+  ACTIONS.DELETE_FAVORITE_SUCCESS
+);
+
+export const deleteFavoriteError = createAction(
+  ACTIONS.DELETE_FAVORITE_ERROR,
   props<{ error: Error }>()
 );
 

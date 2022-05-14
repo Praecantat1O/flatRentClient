@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { IFlat } from 'src/app/interfaces/flat.interface';
+import { LikeChange } from '../../helpers/likeChange.interface';
 
 
 @Component({
@@ -10,5 +10,19 @@ import { IFlat } from 'src/app/interfaces/flat.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlatListComponent {
-  @Input() public flats$: Observable<IFlat[]>;
+  @Input() public flats: IFlat[];
+  @Input() public hasLikeButton?: boolean;
+  @Input() public hasDeleteButton?: boolean;
+  @Input() public isFavorites?: boolean;
+
+  @Output() likeChange?: EventEmitter<LikeChange> = new EventEmitter<LikeChange>();
+  @Output() delete?: EventEmitter<number> = new EventEmitter<number>();
+
+  public onLikeChange(change: LikeChange) {
+    this.likeChange.emit(change);
+  }
+
+  public onDelete(id: number) {
+    this.delete.emit(id);
+  }
 }

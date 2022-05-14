@@ -1,7 +1,9 @@
 <main *ngIf="(isLoading$ | async) === false">
   <div class="list">
     <app-flat-list class="list"
-                   [flats$]="flats$">
+                   [flats]="flats$ | async"
+                   [hasLikeButton]="true"
+                   (likeChange)="onLikeChange($event)">
     </app-flat-list>
   </div>
 </main>

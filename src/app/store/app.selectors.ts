@@ -29,3 +29,5 @@ export const getSelectedUser = createSelector(appState, (state: AppState) => sta
 export const getUserUid = createSelector(appState, (state: AppState) => state.userUid);
 
 export const isLogged = createSelector(appState, (state: AppState) => state.currentUser.value !== null);
+
+export const isUserLoading = createSelector(appState, (state: AppState) => state.selectedUser.status === EntityStatus.Pending);

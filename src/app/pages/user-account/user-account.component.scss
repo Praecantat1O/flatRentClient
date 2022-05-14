@@ -1,18 +1,27 @@
 .user {
   &__info {
     display: flex;
-    justify-content: space-between;
-    max-width: 50%;
-    margin-bottom: 20px;
+  }
+
+  &__info-item {
+    margin-right: 40px;
+
+    :last-child {
+      margin-right: 0px;
+    }
   }
 
   &__item-text {
-    font-style: italic;
-    font-size: 18px;
-    font-weight: 300;
+    font-size: 20px;
+    font-weight: bold;
   }
 }
 
 nb-card.list-card {
   height: 27.55rem;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
 }

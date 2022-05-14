@@ -83,7 +83,7 @@ export class AppEffects {
     this.actions$.pipe(
       ofType(AppActions.loadUser),
       switchMap((item) => {
-        return this.userService.getUserByUid(item.uid).pipe(
+        return this.userService.getUserByUid(item.uid, item.isCurrent).pipe(
           delay(500),
           map((user) => {
             user = { ...user, favorites: null };
@@ -99,7 +99,7 @@ export class AppEffects {
     this.actions$.pipe(
       ofType(AppActions.loadCurrentUser),
       switchMap((item) => {
-        return this.userService.getUserByUid(item.uid).pipe(
+        return this.userService.getUserByUid(item.uid, true).pipe(
           map((user) => AppActions.loadCurrentUserSuccess({ user })),
           catchError((error) => of(AppActions.loadCurrentUserError({ error })))
         );
@@ -128,6 +128,30 @@ export class AppEffects {
           map(() => AppActions.deleteBookingSuccess({ flatId: item.flatId })),
           map(() => AppActions.loadFlatPage({ id: item.flatId })),
           catchError((error) => of(AppActions.deleteBookingError({ error })))
+        );
+      })
+    )
+  );
+
+  public addFavorite$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.addFavorite),
+      switchMap((item) => {
+        return this.userService.addFavorite(item.uid, item.flatId).pipe(
+          map(() => AppActions.addFavoriteSuccess({ flatId: item.flatId })),
+          catchError((error) => of(AppActions.addFavoriteError({ error })))
+        );
+      })
+    )
+  );
+
+  public deleteFavorite$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.deleteFavorite),
+      switchMap((item) => {
+        return this.userService.deleteFavorite(item.uid, item.flatId).pipe(
+          map(() => AppActions.deleteFavoriteSuccess()),
+          catchError((error) => of(AppActions.deleteFavoriteError({ error })))
         );
       })
     )

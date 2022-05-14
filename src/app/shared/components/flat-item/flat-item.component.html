@@ -1,12 +1,11 @@
 <div class="flat">
-  <nb-card [accent]="flat.isFavorite ? 'danger' : 'info'"
+  <nb-card [accent]="isFavorite ? 'danger' : 'info'"
            size="small"
            class="card">
     <nb-card-header class="card__header"></nb-card-header>
-    <nb-card-body class="card__body"
-                  routerLink="/flat/{{flat.id}}">
+    <nb-card-body class="card__body">
       <nb-badge position="top right"
-                status="info"
+                [status]="isFavorite ? 'danger' : 'info'"
                 [text]="price"
                 class="badge-price"></nb-badge>
       <nb-badge position="top left"
@@ -14,7 +13,16 @@
                 class="badge-date"></nb-badge>
 
       <img [src]="flat.photo.photoUrls[0]"
-           class="flat__img">
+           class="flat__img"
+           routerLink="/flat/{{flat.id}}">
+
+      <button nbButton
+              class="flat__like"
+              *ngIf="hasLikeButton"
+              [status]="isFavorite ? 'danger' : 'info'"
+              (click)="switchLike(flat?.id)">
+        <nb-icon icon="heart"></nb-icon>
+      </button>
 
     </nb-card-body>
     <nb-card-footer class="card__footer">

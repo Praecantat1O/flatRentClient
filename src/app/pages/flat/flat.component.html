@@ -11,7 +11,8 @@
             <nb-card-header>{{flat.address.addressStr}}</nb-card-header>
             <nb-card-body class="flat__sidebar">
               <div class="flat__sidebar-info">
-                <div class="user">
+                <div class="user"
+                     routerLink="/user/{{user.uid}}">
                   <nb-user [name]="user.name"
                            [title]="user.phone"
                            size="medium">

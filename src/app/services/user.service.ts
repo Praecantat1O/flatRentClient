@@ -66,7 +66,19 @@ export class UserService {
     return this.http.post<IUser>(apiUrl + 'create', user);
   }
 
-  public getUserByUid(uid: string): Observable<IUser> {
-    return this.http.get<IUser>(apiUrl + uid);
+  public getUserByUid(uid: string, isCurrent?: boolean): Observable<IUser> {
+    return this.http.get<IUser>(apiUrl + uid, {
+      params: {
+        isCurrent,
+      },
+    });
+  }
+
+  public addFavorite(uid: string, flatId: number): Observable<any> {
+    return this.http.post(`${apiUrl}${uid}/add-favorite/${flatId}`, {});
+  }
+
+  public deleteFavorite(uid: string, flatId: number): Observable<any> {
+    return this.http.delete(`${apiUrl}${uid}/delete-favorite/${flatId}`, {});
   }
 }

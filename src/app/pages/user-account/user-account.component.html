@@ -1,34 +1,40 @@
-<nb-card *ngIf="user"
+<nb-card *ngIf="(isAppLoading$ | async) === false && (isUserLoading$ | async) === false"
          status="primary"
          class="user">
-  <nb-card-header>Информация о пользователе <span class="user__item-text">{{user.name}}</span> </nb-card-header>
-  <nb-card-body>
+  <nb-card-header class="main-header">
+    <div class="user__title">
+      Информация о пользователе <span class="user__item-text">{{(selectedUser$ | async)?.name}}</span>
+    </div>
     <div class="user__info">
       <p class="user__info-item subtitle">
-        Телефон: <span class="user__item-text">{{ user.phone }}</span>
+        Телефон: <span class="user__item-text">{{ (selectedUser$ | async)?.phone }}</span>
       </p>
       <p class="user__info-item subtitle">
-        Email: <span class="user__item-text">{{ user.email }}</span>
+        Email: <span class="user__item-text">{{ (selectedUser$ | async)?.email }}</span>
       </p>
     </div>
+  </nb-card-header>
+  <nb-card-body>
     <nb-card status="info"
              size="medium"
              class="list-card">
       <nb-card-header>Объявления пользователя</nb-card-header>
-      <nb-card-body *ngIf="flats$ | async">
+      <nb-card-body>
         <app-flat-list class="list"
-                       [flats$]="flats$">
+                       [flats]="flats$ | async">
         </app-flat-list>
       </nb-card-body>
     </nb-card>
 
     <nb-card status="danger"
              size="medium"
-             class="list-card">
+             class="list-card"
+             *ngIf="isCurrent">
       <nb-card-header>Избранное</nb-card-header>
-      <nb-card-body *ngIf="favorites$ | async">
+      <nb-card-body>
         <app-flat-list class="list"
-                       [flats$]="favorites$">
+                       [flats]="favorites$ | async"
+                       [isFavorites]="true">
         </app-flat-list>
       </nb-card-body>
     </nb-card>

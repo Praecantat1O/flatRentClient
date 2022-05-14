@@ -9,7 +9,7 @@
   &__body {
     padding: 0;
     overflow: hidden;
-    cursor: pointer;
+    position: relative;
   }
 
   &__footer {
@@ -27,12 +27,13 @@
 
 .flat {
   width: 400px;
-  transition: transform .2s linear;
+  transition: transform 0.2s linear;
 
   &__img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    cursor: pointer;
   }
 
   &__address {
@@ -41,6 +42,14 @@
 
   &__bedrooms {
     align-self: flex-end;
+  }
+
+  &__like {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 5;
+    border-radius: 0;
   }
 
   &:hover {

@@ -9,7 +9,7 @@ import {
   NbUserModule,
 } from '@nebular/theme';
 import { GalleryThumbsModule } from 'src/app/shared/modules/gallery-thumbs/gallery-thumbs.module';
-import { BookingModule } from 'src/app/shared/modules/calendar/booking.module';
+import { BookingModule } from 'src/app/shared/modules/booking/booking.module';
 
 @NgModule({
   declarations: [FlatComponent],

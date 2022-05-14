@@ -9,7 +9,7 @@ import {
   NbUserModule,
 } from '@nebular/theme';
 import { GalleryThumbsModule } from 'src/app/shared/modules/gallery-thumbs/gallery-thumbs.module';
-import { CalendarModule } from 'src/app/shared/modules/calendar/calendar.module';
+import { BookingModule } from 'src/app/shared/modules/calendar/booking.module';
 
 @NgModule({
   declarations: [FlatComponent],
@@ -21,7 +21,7 @@ import { CalendarModule } from 'src/app/shared/modules/calendar/calendar.module'
     NbCardModule,
     NbButtonModule,
     NbUserModule,
-    CalendarModule,
+    BookingModule,
   ],
 })
-export class FlatModule {}
+export class FlatModule { }

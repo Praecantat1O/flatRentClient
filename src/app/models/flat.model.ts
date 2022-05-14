@@ -1,9 +1,11 @@
 import { IAddress } from '../interfaces/address.interface';
+import { IBooking } from '../interfaces/booking.interface';
 import { IFlatDevices } from '../interfaces/devices.interface';
 import { IFlat } from '../interfaces/flat.interface';
 import { IFlatInfo } from '../interfaces/flatInfo.interface';
 import { IPhotos } from '../interfaces/photos.interface';
 import { Address } from './address.model';
+import { Booking } from './booking.model';
 import { FlatDevices } from './devices.model';
 import { FlatInfo } from './flatInfo.model';
 import { Photos } from './photos.model';
@@ -20,6 +22,7 @@ export class Flat implements IFlat {
   public userId: number;
   public createdAt: Date;
   public isFavorite?: boolean;
+  public booking: IBooking[];
 
   constructor(flat: IFlat) {
     this.id = flat.id;
@@ -32,5 +35,6 @@ export class Flat implements IFlat {
     this.devices = new FlatDevices(flat.devices);
     this.userId = flat.userId;
     this.createdAt = flat.createdAt;
+    this.booking = flat.booking.map(item => new Booking(item));
   }
 }

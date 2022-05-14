@@ -156,7 +156,6 @@ export const appReducer = createReducer(
         value: null,
         status: EntityStatus.Pending,
       },
-      loaderStatus: state.loaderStatus + 1,
     };
   }),
   on(AppActions.createUserSuccess, (state, { uid }) => {
@@ -167,7 +166,6 @@ export const appReducer = createReducer(
         value: uid,
         status: EntityStatus.Success,
       },
-      loaderStatus: state.loaderStatus - 1,
     };
   }),
   on(AppActions.createUserError, (state, { error }) => {
@@ -179,7 +177,6 @@ export const appReducer = createReducer(
         status: EntityStatus.Error,
         error,
       },
-      loaderStatus: state.loaderStatus - 1,
     };
   }),
   on(AppActions.loadCurrentUser, (state) => {

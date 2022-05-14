@@ -29,6 +29,12 @@ enum ACTIONS {
   LOAD_ALL_FLATS = '[Flat] Load All Flats',
   LOAD_ALL_FLATS_SUCCESS = '[Flat] Load All Flats Success',
   LOAD_ALL_FLATS_ERROR = '[Flat] Load All Flats Error',
+  ADD_BOOKING = '[Booking] Add Booking',
+  ADD_BOOKING_SUCCESS = '[Booking] Add Booking Success',
+  ADD_BOOKING_ERROR = '[Booking] Add Booking Error',
+  DELETE_BOOKING = '[Booking] Delete Booking',
+  DELETE_BOOKING_SUCCESS = '[Booking] Delete Booking Success',
+  DELETE_BOOKING_ERROR = '[Booking] Delete Booking Error',
 }
 
 export const addressSearchAutocomplete = createAction(
@@ -71,7 +77,7 @@ export const createFlatError = createAction(
 
 export const loadFlatPage = createAction(
   ACTIONS.LOAD_FLAT_PAGE,
-  props<{ id: string }>()
+  props<{ id: number }>()
 );
 
 export const loadFlatPageSuccess = createAction(
@@ -146,3 +152,34 @@ export const loadCurrentUserError = createAction(
 export const clearUser = createAction(
   ACTIONS.CLEAR_USER
 );
+
+export const addBooking = createAction(
+  ACTIONS.ADD_BOOKING,
+  props<{ date: string, flatId: number }>()
+);
+
+export const addBookingSuccess = createAction(
+  ACTIONS.ADD_BOOKING_SUCCESS,
+  props<{ flatId: number }>()
+);
+
+export const addBookingError = createAction(
+  ACTIONS.ADD_BOOKING_ERROR,
+  props<{ error: Error }>()
+);
+
+export const deleteBooking = createAction(
+  ACTIONS.DELETE_BOOKING,
+  props<{ id: number, flatId: number }>()
+);
+
+export const deleteBookingSuccess = createAction(
+  ACTIONS.DELETE_BOOKING_SUCCESS,
+  props<{ flatId: number }>()
+);
+
+export const deleteBookingError = createAction(
+  ACTIONS.DELETE_BOOKING_ERROR,
+  props<{ error: Error }>()
+);
+

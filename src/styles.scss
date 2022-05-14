@@ -48,10 +48,6 @@ nb-radio .text {
   line-height: unset;
 }
 
-nb-calendar-picker app-day-cell.day-cell:not(.disabled):not(.empty).today.selected {
-  background-color: #0095ff;
-}
-
 [nbButton]:focus, [nbButtonToggle]:focus {
   box-shadow: none;
 }

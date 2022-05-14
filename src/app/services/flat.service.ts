@@ -19,6 +19,16 @@ export class FlatService {
     return this.http.post(apiUrl, formData);
   }
 
+  public addBooking(date: string, flatId: number): Observable<any> {
+    return this.http.post(`${apiUrl}${flatId}/add-booking`, {
+      "date": date,
+    });
+  }
+
+  public deleteBooking(id: number): Observable<any> {
+    return this.http.delete(`${apiUrl}delete-booking/${id}`);
+  }
+
   public getAll(): Observable<IFlat[]> {
     return this.http.get<IFlat[]>(apiUrl)
       .pipe(
@@ -26,7 +36,7 @@ export class FlatService {
       );
   }
 
-  public getFlatById(id: string): Observable<IFlatUser> {
+  public getFlatById(id: number): Observable<IFlatUser> {
     return this.http.get<IFlatUser>(apiUrl + id)
       .pipe(
         map((value: IFlatUser) => {

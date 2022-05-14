@@ -10,7 +10,7 @@
                    class="sidebar-card-outer">
             <nb-card-header>{{flat.address.addressStr}}</nb-card-header>
             <nb-card-body class="flat__sidebar">
-              <div class="flat__sidebar-top">
+              <div class="flat__sidebar-info">
                 <div class="user">
                   <nb-user [name]="user.name"
                            [title]="user.phone"
@@ -23,7 +23,11 @@
                 </div>
               </div>
               <div class="flat__sidebar-calendar">
-                <app-calendar></app-calendar>
+                <app-booking [booking]="flat.booking"
+                             [isOwn]="isOwn"
+                             (addBooking)="onAddBooking($event)"
+                             (deleteBooking)="onDeleteBooking($event)"
+                             class="booking"></app-booking>
               </div>
             </nb-card-body>
           </nb-card>

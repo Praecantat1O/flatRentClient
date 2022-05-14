@@ -1,4 +1,5 @@
 import { IAddress } from './address.interface';
+import { IBooking } from './booking.interface';
 import { IFlatDevices } from './devices.interface';
 import { IFlatInfo } from './flatInfo.interface';
 import { IPhotos } from './photos.interface';
@@ -15,4 +16,5 @@ export interface IFlat {
   userId: number;
   createdAt: Date;
   isFavorite?: boolean;
+  booking: IBooking[];
 }

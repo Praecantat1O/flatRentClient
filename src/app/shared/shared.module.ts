@@ -19,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddressComponent } from './components/address/address.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
+import { SortBookingPipe } from './pipes/sort-dates.pipe';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { RouterModule } from '@angular/router';
     ImgPreviewComponent,
     AddressAutocompleteComponent,
     AddressComponent,
+    SortBookingPipe,
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,7 @@ import { RouterModule } from '@angular/router';
     AddressComponent,
     FlatItemComponent,
     FlatListComponent,
+    SortBookingPipe,
   ],
 })
 export class SharedModule { }

@@ -99,7 +99,9 @@
                 class="form__button"
                 type="submit"
                 status="primary"
-                [disabled]="loginForm.invalid">Зарегистрироваться</button>
+                [disabled]="registrationForm.invalid">
+          Зарегистрироваться
+        </button>
       </form>
       <div class="form__message">
         <p class="subtitle">{{ regMessage }}</p>
@@ -109,3 +111,5 @@
     </nb-card-body>
   </nb-card>
 </div>
+
+<button (click)="click()">click</button>

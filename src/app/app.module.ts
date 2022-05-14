@@ -4,7 +4,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbButtonModule, NbIconModule, NbLayoutModule, NbPopoverModule, NbSpinnerModule, NbThemeModule } from '@nebular/theme';
+import {
+  NbButtonModule,
+  NbDatepickerModule,
+  NbIconModule,
+  NbLayoutModule,
+  NbPopoverModule,
+  NbSpinnerModule,
+  NbThemeModule,
+} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { appReducer } from './store/app.reducers';
@@ -19,7 +27,8 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-
+import { NbDateFnsDateModule } from '@nebular/date-fns'
+import { ru } from 'date-fns/locale';
 
 registerLocaleData(localeRu, 'ru');
 
@@ -36,6 +45,7 @@ registerLocaleData(localeRu, 'ru');
     EffectsModule.forRoot([AppEffects]),
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'cosmic' }),
+    NbDatepickerModule.forRoot(),
     NbEvaIconsModule,
     NbLayoutModule,
     NbButtonModule,
@@ -47,10 +57,14 @@ registerLocaleData(localeRu, 'ru');
     RouterModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    NbDateFnsDateModule.forRoot({
+      parseOptions: { locale: ru },
+      formatOptions: { locale: ru },
+    }),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ru' },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

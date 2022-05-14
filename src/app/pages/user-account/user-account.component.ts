@@ -45,8 +45,6 @@ export class UserAccountComponent implements OnInit, OnDestroy {
       )
       .subscribe(([selectedUser, currentUser]) => {
         this.user = selectedUser.value;
-        console.log(selectedUser);
-        console.log(currentUser);
         this.isCurrent = selectedUser.value.uid === currentUser.value.uid;
 
         this.flats$ = this.flatService.getFlatByUserUid(uid);

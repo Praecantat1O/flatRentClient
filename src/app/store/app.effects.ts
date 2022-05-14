@@ -72,6 +72,7 @@ export class AppEffects {
         return this.userService.createUser(item.userToDB).pipe(
           delay(500),
           map((user) => AppActions.createUserSuccess({ uid: user.uid })),
+          map((user) => AppActions.loadCurrentUser({ uid: user.uid })),
           catchError((error) => of(AppActions.createUserError({ error })))
         );
       })
@@ -96,11 +97,37 @@ export class AppEffects {
 
   public getCurrentUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AppActions.loadCurrentUser, AppActions.createUserSuccess),
+      ofType(AppActions.loadCurrentUser),
       switchMap((item) => {
         return this.userService.getUserByUid(item.uid).pipe(
           map((user) => AppActions.loadCurrentUserSuccess({ user })),
           catchError((error) => of(AppActions.loadCurrentUserError({ error })))
+        );
+      })
+    )
+  );
+
+  public addBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.addBooking),
+      switchMap((item) => {
+        return this.flatService.addBooking(item.date, item.flatId).pipe(
+          map(() => AppActions.addBookingSuccess({ flatId: item.flatId })),
+          map(() => AppActions.loadFlatPage({ id: item.flatId })),
+          catchError((error) => of(AppActions.addBookingError({ error })))
+        );
+      })
+    )
+  );
+
+  public deleteBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.deleteBooking),
+      switchMap((item) => {
+        return this.flatService.deleteBooking(item.id).pipe(
+          map(() => AppActions.deleteBookingSuccess({ flatId: item.flatId })),
+          map(() => AppActions.loadFlatPage({ id: item.flatId })),
+          catchError((error) => of(AppActions.deleteBookingError({ error })))
         );
       })
     )

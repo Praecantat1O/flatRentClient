@@ -26,16 +26,18 @@
         <nb-icon icon="plus-circle-outline"></nb-icon>подать объявление
       </button>
 
-      <button nbButton
-              size="large"
-              shape="round"
-              status="info"
-              [nbPopover]="logout"
-              nbPopoverTrigger="hover"
-              nbPopoverPlacement="left"
-              routerLink="/user/{{currentUserUid$ | async }}">
-        <nb-icon icon="person"></nb-icon>
-      </button>
+      <div *ngIf="isLogged$ | async">
+        <button nbButton
+                size="large"
+                shape="round"
+                status="info"
+                [nbPopover]="logout"
+                nbPopoverTrigger="hover"
+                nbPopoverPlacement="left"
+                routerLink="/user/{{currentUserUid$ | async }}">
+          <nb-icon icon="person"></nb-icon>
+        </button>
+      </div>
     </div>
   </div>
 </header>

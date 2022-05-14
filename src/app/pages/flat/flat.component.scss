@@ -18,9 +18,16 @@
     height: 500px;
   }
 
-  &__sidebar-top {
+  &__sidebar-calendar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__sidebar-info {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
   }
 
   &__info {
@@ -86,4 +93,8 @@
     border-bottom: 1px dotted gray;
     margin-left: 5px;
   }
+}
+
+.booking {
+  width: 70%;
 }

@@ -17,11 +17,19 @@
            routerLink="/flat/{{flat.id}}">
 
       <button nbButton
-              class="flat__like"
+              class="flat__button"
               *ngIf="hasLikeButton"
               [status]="isFavorite ? 'danger' : 'info'"
               (click)="switchLike(flat?.id)">
         <nb-icon icon="heart"></nb-icon>
+      </button>
+
+      <button nbButton
+              class="flat__button"
+              status="danger"
+              *ngIf="hasDeleteButton"
+              (click)="deleteFlat(flat?.id)">
+        <nb-icon icon="trash"></nb-icon>
       </button>
 
     </nb-card-body>

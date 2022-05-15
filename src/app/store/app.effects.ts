@@ -5,6 +5,7 @@ import * as AppActions from './app.actions';
 import { AddressService } from '../services/address.service';
 import { FlatService } from '../services/flat.service';
 import { UserService } from '../services/user.service';
+import { Flat } from '../models/flat.model';
 
 @Injectable()
 export class AppEffects {
@@ -13,7 +14,7 @@ export class AppEffects {
       ofType(AppActions.addressSearchAutocomplete),
       switchMap((item) => {
         return this.addressService.getAddressByString(item.addressToSearch).pipe(
-          delay(500),
+          delay(100),
           map((addressesSuggestions) => {
             if (addressesSuggestions.length === 0) {
               addressesSuggestions = null;
@@ -150,8 +151,47 @@ export class AppEffects {
       ofType(AppActions.deleteFavorite),
       switchMap((item) => {
         return this.userService.deleteFavorite(item.uid, item.flatId).pipe(
-          map(() => AppActions.deleteFavoriteSuccess()),
+          map(() => AppActions.deleteFavoriteSuccess({ flatId: item.flatId })),
           catchError((error) => of(AppActions.deleteFavoriteError({ error })))
+        );
+      })
+    )
+  );
+
+  public deleteFlat$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.deleteFlat),
+      switchMap((item) => {
+        return this.flatService.deleteFlat(item.id).pipe(
+          map(() => AppActions.deleteFlatSuccess({ id: item.id })),
+          catchError((error) => of(AppActions.deleteFlatError({ error })))
+        );
+      })
+    )
+  );
+
+  public loadUserFlats$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.loadUserFlats),
+      switchMap((item) => {
+        return this.flatService.getFlatsByUserUid(item.uid).pipe(
+          map(flats => flats.map(flat => new Flat(flat))),
+          map((flats) => AppActions.loadUserFlatsSuccess({ flats })),
+          catchError((error) => of(AppActions.loadUserFlatsError({ error })))
+        );
+      })
+    )
+  );
+
+  public loadFavorites$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.loadFavorites),
+      switchMap((item) => {
+        return this.flatService.getFlatsByIdList(item.ids).pipe(
+          map(flats => flats.length > 0 ? flats : null),
+          map(flats => flats.map(flat => new Flat(flat))),
+          map((flats) => AppActions.loadFavoritesSuccess({ flats })),
+          catchError((error) => of(AppActions.loadFavoritesError({ error })))
         );
       })
     )

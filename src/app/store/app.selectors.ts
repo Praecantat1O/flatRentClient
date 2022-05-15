@@ -31,3 +31,7 @@ export const getUserUid = createSelector(appState, (state: AppState) => state.us
 export const isLogged = createSelector(appState, (state: AppState) => state.currentUser.value !== null);
 
 export const isUserLoading = createSelector(appState, (state: AppState) => state.selectedUser.status === EntityStatus.Pending);
+
+export const getUserFlats = createSelector(appState, (state: AppState) => state.userFlats);
+
+export const getUserFavorites = createSelector(appState, (state: AppState) => state.userFavorites);

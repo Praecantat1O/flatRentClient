@@ -29,6 +29,10 @@ export class FlatService {
     return this.http.delete(`${apiUrl}delete-booking/${id}`);
   }
 
+  public deleteFlat(id: number): Observable<any> {
+    return this.http.delete(`${apiUrl}delete/${id}`);
+  }
+
   public getAll(): Observable<IFlat[]> {
     return this.http.get<IFlat[]>(apiUrl)
       .pipe(
@@ -48,25 +52,19 @@ export class FlatService {
       );
   }
 
-  public getFlatByUserUid(uid: string): Observable<IFlat[]> {
+  public getFlatsByUserUid(uid: string): Observable<IFlat[]> {
     return this.http.get<IFlat[]>(apiUrl, {
       params: {
         userUid: uid,
       },
     })
-      .pipe(
-        map(flats => flats.map(flat => new Flat(flat)))
-      );
   }
 
-  public getFlatByIdList(ids: number[]): Observable<IFlat[]> {
+  public getFlatsByIdList(ids: number[]): Observable<IFlat[]> {
     return this.http.get<IFlat[]>(apiUrl, {
       params: {
         idList: ids.map(item => item.toString()).join(','),
       },
-    })
-      .pipe(
-        map(flats => flats.map(flat => new Flat(flat)))
-      );
+    });
   }
 }

@@ -5,6 +5,7 @@
     <app-flat-item class="list__item"
                    [flat]="flat"
                    [hasLikeButton]="hasLikeButton"
+                   [hasDeleteButton]="hasDeleteButton"
                    (likeChange)="onLikeChange($event)"
                    (delete)="onDelete($event)">
     </app-flat-item>
@@ -21,7 +22,8 @@
   </div>
   <div class="empty"
        *ngIf="isFavorites">
-    <h2 class="h2 empty__text">Нет избранных объявлений. Нажмите <nb-icon class="empty__icon" icon="heart"
+    <h2 class="h2 empty__text">Нет избранных объявлений. Нажмите <nb-icon class="empty__icon"
+               icon="heart"
                status="danger"></nb-icon>, чтобы добавить объявление в избранное.
     </h2>
   </div>

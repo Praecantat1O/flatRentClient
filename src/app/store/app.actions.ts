@@ -41,6 +41,15 @@ enum ACTIONS {
   DELETE_FAVORITE = '[User] Delete Favorite',
   DELETE_FAVORITE_SUCCESS = '[User] Delete Favorite Success',
   DELETE_FAVORITE_ERROR = '[User] Delete Favorite Error',
+  DELETE_FLAT = '[Flat] Delete Flat',
+  DELETE_FLAT_SUCCESS = '[Flat] Delete Flat Success',
+  DELETE_FLAT_ERROR = '[Flat] Delete Flat Error',
+  LOAD_USER_FLATS = '[Flat] Load User Flats',
+  LOAD_USER_FLATS_SUCCESS = '[Flat] Load User Flats Success',
+  LOAD_USER_FLATS_ERROR = '[Flat] Load User Flats Error',
+  LOAD_FAVORITES = '[Flat] Load Favorites',
+  LOAD_FAVORITES_SUCCESS = '[Flat] Load Favorites Success',
+  LOAD_FAVORITES_ERROR = '[Flat] Load Favorites Error',
 }
 
 export const addressSearchAutocomplete = createAction(
@@ -210,7 +219,8 @@ export const deleteFavorite = createAction(
 );
 
 export const deleteFavoriteSuccess = createAction(
-  ACTIONS.DELETE_FAVORITE_SUCCESS
+  ACTIONS.DELETE_FAVORITE_SUCCESS,
+  props<{ flatId: number }>()
 );
 
 export const deleteFavoriteError = createAction(
@@ -218,3 +228,47 @@ export const deleteFavoriteError = createAction(
   props<{ error: Error }>()
 );
 
+export const deleteFlat = createAction(
+  ACTIONS.DELETE_FLAT,
+  props<{ id: number }>()
+);
+
+export const deleteFlatSuccess = createAction(
+  ACTIONS.DELETE_FLAT_SUCCESS,
+  props<{ id: number }>()
+);
+
+export const deleteFlatError = createAction(
+  ACTIONS.DELETE_FLAT_ERROR,
+  props<{ error: Error }>()
+);
+
+export const loadUserFlats = createAction(
+  ACTIONS.LOAD_USER_FLATS,
+  props<{ uid: string }>()
+);
+
+export const loadUserFlatsSuccess = createAction(
+  ACTIONS.LOAD_USER_FLATS_SUCCESS,
+  props<{ flats: IFlat[] }>()
+);
+
+export const loadUserFlatsError = createAction(
+  ACTIONS.LOAD_USER_FLATS_ERROR,
+  props<{ error: Error }>()
+);
+
+export const loadFavorites = createAction(
+  ACTIONS.LOAD_FAVORITES,
+  props<{ ids: number[] }>()
+);
+
+export const loadFavoritesSuccess = createAction(
+  ACTIONS.LOAD_FAVORITES_SUCCESS,
+  props<{ flats: IFlat[] }>()
+);
+
+export const loadFavoritesError = createAction(
+  ACTIONS.LOAD_FAVORITES_ERROR,
+  props<{ error: Error }>()
+);

@@ -21,7 +21,9 @@
       <nb-card-header>Объявления пользователя</nb-card-header>
       <nb-card-body>
         <app-flat-list class="list"
-                       [flats]="flats$ | async">
+                       [flats]="flats$ | async"
+                       [hasDeleteButton]="true"
+                       (delete)="onDelete($event)">
         </app-flat-list>
       </nb-card-body>
     </nb-card>
@@ -34,7 +36,9 @@
       <nb-card-body>
         <app-flat-list class="list"
                        [flats]="favorites$ | async"
-                       [isFavorites]="true">
+                       [isFavorites]="true"
+                       [hasLikeButton]="true"
+                       (likeChange)="onLikeChange($event)">
         </app-flat-list>
       </nb-card-body>
     </nb-card>

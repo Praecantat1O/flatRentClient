@@ -254,5 +254,152 @@ export const appReducer = createReducer(
         ...initialState.currentUser,
       },
     };
+  }),
+  on(AppActions.addFavorite, AppActions.deleteFavorite, (state) => {
+    return {
+      ...state,
+      userFavorites: {
+        ...state.userFavorites,
+        status: EntityStatus.Pending,
+      },
+    };
+  }),
+  on(AppActions.addFavoriteSuccess, (state, { flatId }) => {
+    return {
+      ...state,
+      currentUser: {
+        ...state.currentUser,
+        value: {
+          ...state.currentUser.value,
+          favorites: [...state.currentUser.value.favorites, flatId],
+        },
+      },
+      userFavorites: {
+        ...state.userFavorites,
+        status: EntityStatus.Success,
+      },
+    };
+  }),
+  on(AppActions.deleteFavoriteSuccess, (state, { flatId }) => {
+    return {
+      ...state,
+      currentUser: {
+        ...state.currentUser,
+        value: {
+          ...state.currentUser.value,
+          favorites: state.currentUser.value.favorites.filter(id => id !== flatId),
+        },
+      },
+      userFavorites: {
+        ...state.userFavorites,
+        value: state.userFavorites.value.filter(flat => flat.id !== flatId),
+        status: EntityStatus.Success,
+      },
+    };
+  }),
+  on(AppActions.addFavoriteError, AppActions.deleteFavoriteError, (state) => {
+    return {
+      ...state,
+      userFavorites: {
+        ...state.userFavorites,
+        status: EntityStatus.Error,
+      },
+    };
+  }),
+  on(AppActions.loadFavorites, (state) => {
+    return {
+      ...state,
+      userFavorites: {
+        ...state.userFavorites,
+        value: null,
+        status: EntityStatus.Pending,
+      },
+      loaderStatus: state.loaderStatus + 1,
+    };
+  }),
+  on(AppActions.loadFavoritesSuccess, (state, { flats }) => {
+    return {
+      ...state,
+      userFavorites: {
+        ...state.userFavorites,
+        value: flats,
+        status: EntityStatus.Success,
+      },
+      loaderStatus: state.loaderStatus - 1,
+    };
+  }),
+  on(AppActions.loadFavoritesError, (state, { error }) => {
+    return {
+      ...state,
+      userFavorites: {
+        ...state.userFavorites,
+        value: null,
+        status: EntityStatus.Error,
+        error,
+      },
+      loaderStatus: state.loaderStatus - 1,
+    };
+  }),
+  on(AppActions.loadUserFlats, (state) => {
+    return {
+      ...state,
+      userFlats: {
+        ...state.userFlats,
+        value: null,
+        status: EntityStatus.Pending,
+      },
+      loaderStatus: state.loaderStatus + 1,
+    };
+  }),
+  on(AppActions.loadUserFlatsSuccess, (state, { flats }) => {
+    return {
+      ...state,
+      userFlats: {
+        ...state.userFlats,
+        value: flats,
+        status: EntityStatus.Success,
+      },
+      loaderStatus: state.loaderStatus - 1,
+    };
+  }),
+  on(AppActions.loadUserFlatsError, (state, { error }) => {
+    return {
+      ...state,
+      userFlats: {
+        ...state.userFlats,
+        value: null,
+        status: EntityStatus.Error,
+        error,
+      },
+      loaderStatus: state.loaderStatus - 1,
+    };
+  }),
+  on(AppActions.deleteFlat, (state) => {
+    return {
+      ...state,
+      userFlats: {
+        ...state.userFlats,
+        status: EntityStatus.Pending,
+      },
+    };
+  }),
+  on(AppActions.deleteFlatSuccess, (state, { id }) => {
+    return {
+      ...state,
+      userFlats: {
+        ...state.userFlats,
+        value: state.userFlats.value.filter(flat => flat.id !== id),
+        status: EntityStatus.Success,
+      },
+    };
+  }),
+  on(AppActions.deleteFlatError, (state) => {
+    return {
+      ...state,
+      userFlats: {
+        ...state.userFlats,
+        status: EntityStatus.Error,
+      },
+    };
   })
 );

@@ -14,6 +14,8 @@ export interface AppState {
   allFlats: StateEntity<IFlat[]>;
   loaderStatus: number;
   userUid: StateEntity<string>;
+  userFavorites: StateEntity<IFlat[]>;
+  userFlats: StateEntity<IFlat[]>;
 }
 
 export const initialState: AppState = {
@@ -48,6 +50,16 @@ export const initialState: AppState = {
     error: null,
   },
   userUid: {
+    status: EntityStatus.Init,
+    value: null,
+    error: null,
+  },
+  userFavorites: {
+    status: EntityStatus.Init,
+    value: null,
+    error: null,
+  },
+  userFlats: {
     status: EntityStatus.Init,
     value: null,
     error: null,

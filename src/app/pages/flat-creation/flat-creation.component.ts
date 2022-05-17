@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   bathroomDevicesFields,
@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { getCreatedFlatId, getCurrentUser } from 'src/app/store/app.selectors';
 import { filter, map, Observable, Subscription, take } from 'rxjs';
-import { createFlat } from 'src/app/store/app.actions';
+import { clearCreatedFlat, createFlat } from 'src/app/store/app.actions';
 import { IPhotoPreview } from 'src/app/interfaces/photo-preview.interface';
 import { addressValidator } from 'src/app/shared/validators/address.validator';
 import { EntityStatus } from 'src/app/store/state.helpers';
@@ -24,7 +24,7 @@ import { Router } from '@angular/router';
   templateUrl: './flat-creation.component.html',
   styleUrls: ['./flat-creation.component.scss'],
 })
-export class FlatCreationComponent implements OnInit {
+export class FlatCreationComponent implements OnInit, OnDestroy {
   constructor(private cdr: ChangeDetectorRef, private store: Store<AppState>, private router: Router) { }
 
   public newFlatForm: FormGroup;
@@ -102,8 +102,13 @@ export class FlatCreationComponent implements OnInit {
         filter(id => id.status === EntityStatus.Success),
         take(1)
       ).subscribe(id => {
+        this.store.dispatch(clearCreatedFlat());
         this.router.navigate([`/flat/${id.value}`]);
       })
+  }
+
+  public ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   public get photosErrors() {

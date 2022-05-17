@@ -14,6 +14,7 @@ enum ACTIONS {
   CREATE_USER = '[Auth] Create User',
   CREATE_USER_SUCCESS = '[Auth] Create User Success',
   CREATE_USER_ERROR = '[Auth] Create User Error',
+  CLEAR_CREATED_FLAT = '[Flat] Clear Created Flat',
   CLEAR_USER = '[Auth] Clear User',
   ADDRESS_SEARCH_AUTOCOMPLETE = '[Address] Address Search Autocomplete',
   ADDRESS_SEARCH_AUTOCOMPLETE_SUCCESS = '[Address] Address Search Autocomplete Success',
@@ -88,6 +89,10 @@ export const createFlatSuccess = createAction(
 export const createFlatError = createAction(
   ACTIONS.CREATE_FLAT_ERROR,
   props<{ error: Error }>()
+);
+
+export const clearCreatedFlat = createAction(
+  ACTIONS.CLEAR_CREATED_FLAT
 );
 
 export const loadFlatPage = createAction(

@@ -82,6 +82,15 @@ export const appReducer = createReducer(
       loaderStatus: state.loaderStatus - 1,
     };
   }),
+  on(AppActions.clearCreatedFlat, (state) => {
+    return {
+      ...state,
+      createdFlatId: {
+        value: null,
+        status: EntityStatus.Init,
+      },
+    };
+  }),
   on(AppActions.loadFlatPage, (state) => {
     return {
       ...state,

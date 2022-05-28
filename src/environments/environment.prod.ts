@@ -1,3 +1,10 @@
+const apiUrls = {
+  host: 'http://localhost:5000/',
+  address: 'http://localhost:5000/api/address/',
+  flat: 'http://localhost:5000/api/flat/',
+  user: 'http://localhost:5000/api/user/',
+}
+
 export const environment = {
   firebase: {
     projectId: 'flatrent-f92cb',
@@ -8,4 +15,5 @@ export const environment = {
     messagingSenderId: '408475068079',
   },
   production: true,
+  apiUrls,
 };
